@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Aferições — Monitoria Sentran</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <meta name="theme-color" content="#080808">
+  <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<script src="main.js"></script>
+<script src="equipamentos-data.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  var OVERRIDE_KEY = 'sentran-afericoes';
+  var AGENDA_KEY = 'sentran-afericoes-agenda';
+  var CAN_EDIT = !!(window.SentranAuth && window.SentranAuth.isEditor && window.SentranAuth.isEditor());
+
+  var equipamentos = [];
+  var contratos = [];
+  var contratoAtual = '';
+  var filtroVencimento = '';
+  var busca = '';
+  var agendaFiltro = '';
+
+  function esc(value){
+    return String(value == null ? '' : value)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#39;');
+  }
+
+  function normalizarSerie(value){
+    return String(value || '').trim().toUpperCase();
+  }
+
+  function lerStorage(key){
+    try { return JSON.parse(localStorage.getItem(key)) || []; }
+    catch(e){ return []; }
+  }
+
+  function salvarStorage(key, value){
+    try { localStorage.setItem(key, JSON.stringify(value)); }
+    catch(e){}
+  }
+
+  function hoje(){
+    var d = new Date();
+    d.setHours(0,0,0,0);
+    return d;
+  }
+
+  function parseData(value){
+    if(!value) return null;
+    value = String(value).trim();
+    if(!value || value.toUpperCase() === 'N/A') return null;
+
+    var m = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if(m){
+      var br = new Date(Number(m[3]), Number(m[2])-1, Number(m[1]));
+      return isNaN(br) ? null : br;
+    }
+
+    m = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(m){
+      var iso = new Date(Number(m[1]), Number(m[2])-1, Number(m[3]));
+      return isNaN(iso) ? null : iso;
+    }
+
+    return null;
+  }
+
+  function paraISO(value){
+    var d = parseData(value);
+    if(!d) return '';
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+
+  function paraBR(value){
+    var d = parseData(value);
+    if(!d) return '';
+    return String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + d.getFullYear();
+  }
+
+  function diasAte(value){
+    var d = parseData(value);
+    if(!d) return null;
+    d.setHours(0,0,0,0);
+    return Math.ceil((d - hoje()) / 86400000);
+  }
+
+  function textoStatus(vencimento){
+    var d = diasAte(vencimento);
+    if(d === null) return {texto:'Sem data', classe:'af-empty'};
+    if(d < 0) return {texto:'Vencido há ' + Math.abs(d) + ' dia(s)', classe:'af-bad'};
+    if(d === 0) return {texto:'Vence hoje', classe:'af-bad'};
+    if(d <= 30) return {texto:'Vence em ' + d + ' dia(s)', classe:'af-bad'};
+    if(d <= 60) return {texto:'Vence em ' + d + ' dia(s)', classe:'af-warn'};
+    if(d <= 90) return {texto:'Vence em ' + d + ' dia(s)', classe:'af-warn'};
+    return {texto:'Vence em ' + d + ' dia(s)', classe:'af-ok'};
+  }
+
+  function aguardarMain(callback){
+    var main = document.getElementById('main-content');
+    if(main){ callback(main); return; }
+    var obs = new MutationObserver(function(){
+      main = document.getElementById('main-content');
+      if(main){ obs.disconnect(); callback(main); }
+    });
+    obs.observe(document.body, {childList:true, subtree:true});
+  }
+
+  function normalizarEquipamento(item){
+    var afer = item.afericao || {};
+    var contrato = item.contrato || item.cidade || item.projeto || 'Sem contrato';
+    return {
+      contrato: contrato,
+      cidade: item.cidade || contrato,
+      serie: item.serie || item.Serie || item['Série'] || '',
+      local: item.local || item.endereco || item.Local || '',
+      modelo: item.modelo || '',
+      funcao: item.funcao || '',
+      ip: item.ip || '',
+      latitude: item.latitude || '',
+      longitude: item.longitude || '',
+      dataAfericao: paraISO(item.dataAfericao || afer.data_afericao || afer.data || ''),
+      vencimento: paraISO(item.dataVencimento || afer.data_vencimento || afer.vencimento || ''),
+      certificado: item.certificado || afer.certificado || '',
+      inmetro: item.inmetro || item.nrInmetro || afer.inmetro || ''
+    };
+  }
+
+  function mapaOverrides(){
+    var mapa = {};
+    lerStorage(OVERRIDE_KEY).forEach(function(x){
+      if(x && x.serie) mapa[normalizarSerie(x.serie)] = x;
+    });
+    return mapa;
+  }
+
+  function linhasDoContrato(contrato){
+    var overrides = mapaOverrides();
+    var rows = equipamentos
+      .filter(function(e){ return e.contrato === contrato; })
+      .map(function(e){
+        var o = overrides[normalizarSerie(e.serie)] || {};
+        return Object.assign({}, e, o, {contrato: contrato, serie: e.serie});
+      });
+
+    lerStorage(OVERRIDE_KEY).forEach(function(o){
+      if(o && o.contrato === contrato && !rows.some(function(r){ return normalizarSerie(r.serie) === normalizarSerie(o.serie); })){
+        rows.push(o);
+      }
+    });
+
+    return rows.sort(function(a,b){ return String(a.serie || '').localeCompare(String(b.serie || ''), 'pt-BR', {numeric:true}); });
+  }
+
+  function passouFiltro(row){
+    var q = busca.trim().toLowerCase();
+    if(q){
+      var texto = [row.contrato,row.serie,row.local,row.modelo,row.funcao,row.certificado,row.inmetro,row.ip].join(' ').toLowerCase();
+      if(texto.indexOf(q) === -1) return false;
+    }
+    if(filtroVencimento){
+      var d = diasAte(row.vencimento);
+      if(d === null || d < 0 || d > Number(filtroVencimento)) return false;
+    }
+    return true;
+  }
+
+  function salvarLinha(serie){
+    if(!CAN_EDIT) return;
+    var dados = lerStorage(OVERRIDE_KEY);
+    var serieNorm = normalizarSerie(serie);
+    var base = equipamentos.find(function(e){ return normalizarSerie(e.serie) === serieNorm; }) || {};
+    var registro = dados.find(function(x){ return normalizarSerie(x.serie) === serieNorm; });
+    if(!registro){
+      registro = {contrato: base.contrato || contratoAtual, serie: serie};
+      dados.push(registro);
+    }
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-af-serie]'), function(input){
+      if(normalizarSerie(input.getAttribute('data-af-serie')) === serieNorm){
+        registro[input.getAttribute('data-field')] = input.value;
+      }
+    });
+
+    registro.contrato = base.contrato || contratoAtual;
+    registro.serie = base.serie || serie;
+    salvarStorage(OVERRIDE_KEY, dados);
+    renderTabela();
+  }
+
+  function renderBotoes(){
+    var box = document.getElementById('contratoBtns');
+    box.innerHTML = '<button class="botao af-contrato-btn active" data-agenda-open="1">Próximas agendas de aferição</button>' +
+      contratos.map(function(c){ return '<button class="botao af-contrato-btn" data-contrato="'+esc(c)+'">'+esc(c)+'</button>'; }).join('');
+  }
+
+  function selecionarAgenda(){
+    contratoAtual = '';
+    document.querySelectorAll('.af-contrato-btn').forEach(function(btn){ btn.classList.toggle('active', !!btn.dataset.agendaOpen); });
+    document.getElementById('afContratoArea').innerHTML = '';
+    document.getElementById('afAgendaArea').style.display = 'block';
+    renderAgenda();
+  }
+
+  function selecionarContrato(contrato){
+    contratoAtual = contrato;
+    document.querySelectorAll('.af-contrato-btn').forEach(function(btn){ btn.classList.toggle('active', btn.dataset.contrato === contrato); });
+    document.getElementById('afAgendaArea').style.display = 'none';
+    renderTabela();
+  }
+
+  function renderTabela(){
+    var area = document.getElementById('afContratoArea');
+    if(!contratoAtual){ area.innerHTML = ''; return; }
+    var rows = linhasDoContrato(contratoAtual).filter(passouFiltro);
+    var html = '';
+
+    html += '<h2 class="titulo" style="font-size:2.4rem;margin-bottom:10px">' + esc(contratoAtual) + '</h2>';
+    html += '<p class="table-counter">' + rows.length + ' equipamento(s) encontrado(s)</p>';
+    html += '<div class="af-table-wrap"><table class="locais af-table"><thead><tr>';
+    html += '<th class="locais_th">N° de série</th>';
+    html += '<th class="locais_th">Data de aferição</th>';
+    html += '<th class="locais_th">Data de vencimento</th>';
+    html += '<th class="locais_th">N° do certificado</th>';
+    html += '<th class="locais_th">N° do Inmetro</th>';
+    html += '<th class="locais_th">Status</th>';
+    html += '<th class="locais_th">Ações</th>';
+    html += '</tr></thead><tbody>';
+
+    if(!rows.length){
+      html += '<tr><td class="locais_td" colspan="7">Nenhum equipamento encontrado.</td></tr>';
+    } else {
+      rows.forEach(function(row){
+        var st = textoStatus(row.vencimento);
+        html += '<tr class="locais_tr">';
+        html += '<td class="locais_td"><strong>' + esc(row.serie) + '</strong></td>';
+        html += '<td class="locais_td"><input class="occ-input af-cell" type="date" data-field="dataAfericao" data-af-serie="'+esc(row.serie)+'" value="'+esc(paraISO(row.dataAfericao))+'" '+(!CAN_EDIT?'readonly tabindex="-1"':'')+'></td>';
+        html += '<td class="locais_td"><input class="occ-input af-cell" type="date" data-field="vencimento" data-af-serie="'+esc(row.serie)+'" value="'+esc(paraISO(row.vencimento))+'" '+(!CAN_EDIT?'readonly tabindex="-1"':'')+'></td>';
+        html += '<td class="locais_td"><input class="occ-input af-cell" data-field="certificado" data-af-serie="'+esc(row.serie)+'" value="'+esc(row.certificado)+'" '+(!CAN_EDIT?'readonly tabindex="-1"':'')+'></td>';
+        html += '<td class="locais_td"><input class="occ-input af-cell" data-field="inmetro" data-af-serie="'+esc(row.serie)+'" value="'+esc(row.inmetro)+'" '+(!CAN_EDIT?'readonly tabindex="-1"':'')+'></td>';
+        html += '<td class="locais_td"><span class="af-status '+st.classe+'">'+esc(st.texto)+'</span></td>';
+        html += '<td class="locais_td">'+(CAN_EDIT?'<button class="af-save-row" data-save-serie="'+esc(row.serie)+'" title="Salvar alterações">💾</button>':'<span class="view-only-chip">Visualização</span>')+'</td>';
+        html += '</tr>';
+      });
+    }
+
+    html += '</tbody></table></div>';
+    area.innerHTML = html;
+  }
+
+  function salvarAgendaLinha(id){
+    if(!CAN_EDIT) return;
+    var lista = lerStorage(AGENDA_KEY);
+    var item = lista.find(function(x){ return String(x.id) === String(id); });
+    if(!item) return;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-agenda-id]'), function(input){
+      if(String(input.getAttribute('data-agenda-id')) === String(id)){
+        item[input.getAttribute('data-ag-field')] = input.value;
+      }
+    });
+    salvarStorage(AGENDA_KEY, lista);
+  }
+
+  function renderAgenda(){
+    var rows = lerStorage(AGENDA_KEY).sort(function(a,b){ return String(a.data || '').localeCompare(String(b.data || '')); });
+    if(agendaFiltro){ rows = rows.filter(function(x){ return String(x.status || 'pendente') === agendaFiltro; }); }
+    var tbody = document.getElementById('agRows');
+    if(!tbody) return;
+
+    if(!rows.length){
+      tbody.innerHTML = '<tr><td class="locais_td" colspan="6">Nenhuma agenda cadastrada.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = rows.map(function(row){
+      var status = row.status || 'pendente';
+      return '<tr class="locais_tr">' +
+        '<td class="locais_td"><input '+(!CAN_EDIT?'readonly tabindex="-1" ':'')+'class="occ-input ag-cell" type="date" data-agenda-id="'+esc(row.id)+'" data-ag-field="data" value="'+esc(row.data || '')+'"></td>' +
+        '<td class="locais_td"><input '+(!CAN_EDIT?'readonly tabindex="-1" ':'')+'class="occ-input ag-cell" data-agenda-id="'+esc(row.id)+'" data-ag-field="contrato" value="'+esc(row.contrato || '')+'"></td>' +
+        '<td class="locais_td"><input '+(!CAN_EDIT?'readonly tabindex="-1" ':'')+'class="occ-input ag-cell" data-agenda-id="'+esc(row.id)+'" data-ag-field="serie" value="'+esc(row.serie || '')+'"></td>' +
+        '<td class="locais_td"><input '+(!CAN_EDIT?'readonly tabindex="-1" ':'')+'class="occ-input ag-cell" data-agenda-id="'+esc(row.id)+'" data-ag-field="resp" value="'+esc(row.resp || '')+'"></td>' +
+        '<td class="locais_td"><input '+(!CAN_EDIT?'readonly tabindex="-1" ':'')+'class="occ-input ag-cell" data-agenda-id="'+esc(row.id)+'" data-ag-field="obs" value="'+esc(row.obs || '')+'"></td>' +
+        '<td class="locais_td">' +
+          (CAN_EDIT ? '<div class="ag-actions"><button class="func-btn ag-status-btn ag-approved '+(status==='aprovado'?'active':'')+'" data-id-agenda="'+esc(row.id)+'" data-status-agenda="aprovado">Aprovado</button><button class="func-btn ag-status-btn ag-rejected '+(status==='reprovado'?'active':'')+'" data-id-agenda="'+esc(row.id)+'" data-status-agenda="reprovado">Reprovado</button><button class="func-btn ag-delete-btn" data-delete-agenda="'+esc(row.id)+'">Excluir</button></div>' : '<span class="view-only-chip">'+esc(status)+'</span>') +
+        '</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  function montarPagina(main){
+    main.innerHTML =
+      '<h1 class="titulo">Aferições</h1>' +
+      '<p class="page-meta"><span class="meta-chip">Base: equipamentos.json</span><span class="meta-chip">'+equipamentos.length+' equipamento(s)</span><span class="meta-chip">'+contratos.length+' contrato(s)</span></p>' +
+      '<section class="af-card">' +
+        '<h2 class="af-subtitle">Contratos</h2>' +
+        '<div class="btn-grid btn-grid--large" id="contratoBtns"></div>' +
+      '</section>' +
+      '<section class="af-card">' +
+        '<h2 class="af-subtitle">Filtros de aferição</h2>' +
+        '<div class="af-toolbar">' +
+          '<input type="search" class="table-search" id="afBusca" placeholder="🔍 Buscar série, contrato, certificado ou Inmetro…" aria-label="Buscar aferição">' +
+          '<div class="af-filter-row" style="margin-top:12px">' +
+            '<button class="func-btn active" data-venc="">Todos</button>' +
+            '<button class="func-btn" data-venc="30">Vencem em 30 dias</button>' +
+            '<button class="func-btn" data-venc="60">Vencem em 60 dias</button>' +
+            '<button class="func-btn" data-venc="90">Vencem em 90 dias</button>' +
+          '</div>' +
+        '</div>' +
+      '</section>' +
+      '<section id="afAgendaArea" class="af-card">' +
+        '<h2 class="af-subtitle">Próximas agendas de aferição</h2>' +
+        '<div class="af-filter-row" style="margin-bottom:14px">' +
+          '<button class="func-btn active" data-ag-status="">Todas</button>' +
+          '<button class="func-btn" data-ag-status="pendente">Pendentes</button>' +
+          '<button class="func-btn ag-status-btn ag-approved" data-ag-status="aprovado">Aprovadas</button>' +
+          '<button class="func-btn ag-status-btn ag-rejected" data-ag-status="reprovado">Reprovadas</button>' +
+        '</div>' +
+        (CAN_EDIT ? '<div class="af-form-grid" style="margin-bottom:16px"><input class="occ-input" id="agData" type="date"><input class="occ-input" id="agContrato" placeholder="Contrato"><input class="occ-input" id="agSerie" placeholder="Série"><input class="occ-input" id="agResp" placeholder="Responsável"><input class="occ-input af-span-2" id="agObs" placeholder="Observações"><button class="occ-save-btn" id="agSalvar" type="button">Adicionar agenda</button></div>' : '<p class="view-only-chip" style="margin-bottom:16px">Perfil de visualização</p>') +
+        '<div class="af-table-wrap"><table class="locais af-table"><thead><tr><th class="locais_th">Data</th><th class="locais_th">Contrato</th><th class="locais_th">Série</th><th class="locais_th">Responsável</th><th class="locais_th">Observações</th><th class="locais_th">Ações</th></tr></thead><tbody id="agRows"></tbody></table></div>' +
+      '</section>' +
+      '<section id="afContratoArea"></section>';
+
+    renderBotoes();
+    selecionarAgenda();
+
+    main.addEventListener('click', function(e){
+      var agendaBtn = e.target.closest('[data-agenda-open]');
+      if(agendaBtn){ selecionarAgenda(); return; }
+
+      var contratoBtn = e.target.closest('[data-contrato]');
+      if(contratoBtn){ selecionarContrato(contratoBtn.getAttribute('data-contrato')); return; }
+
+      var salvarBtn = e.target.closest('[data-save-serie]');
+      if(salvarBtn){
+        salvarLinha(salvarBtn.getAttribute('data-save-serie'));
+        return;
+      }
+
+      var agendaStatus = e.target.closest('[data-status-agenda]');
+      if(agendaStatus && CAN_EDIT){
+        var lista = lerStorage(AGENDA_KEY);
+        lista.forEach(function(x){
+          if(String(x.id) === String(agendaStatus.getAttribute('data-id-agenda'))){
+            x.status = agendaStatus.getAttribute('data-status-agenda');
+            x.conclusao = new Date().toISOString().slice(0,10);
+          }
+        });
+        salvarStorage(AGENDA_KEY, lista);
+        renderAgenda();
+        return;
+      }
+
+      var deleteAgenda = e.target.closest('[data-delete-agenda]');
+      if(deleteAgenda && CAN_EDIT){
+        if(confirm('Excluir esta agenda?')){
+          var id = deleteAgenda.getAttribute('data-delete-agenda');
+          salvarStorage(AGENDA_KEY, lerStorage(AGENDA_KEY).filter(function(x){ return String(x.id) !== String(id); }));
+          renderAgenda();
+        }
+        return;
+      }
+
+      var agendaFilter = e.target.closest('[data-ag-status]');
+      if(agendaFilter){
+        document.querySelectorAll('[data-ag-status]').forEach(function(btn){ btn.classList.remove('active'); });
+        agendaFilter.classList.add('active');
+        agendaFiltro = agendaFilter.getAttribute('data-ag-status');
+        renderAgenda();
+        return;
+      }
+
+      var vencFilter = e.target.closest('[data-venc]');
+      if(vencFilter){
+        document.querySelectorAll('[data-venc]').forEach(function(btn){ btn.classList.remove('active'); });
+        vencFilter.classList.add('active');
+        filtroVencimento = vencFilter.getAttribute('data-venc');
+        renderTabela();
+      }
+    });
+
+    main.addEventListener('change', function(e){
+      if(!CAN_EDIT) return;
+      if(e.target.classList.contains('af-cell')) salvarLinha(e.target.getAttribute('data-af-serie'));
+      if(e.target.classList.contains('ag-cell')) salvarAgendaLinha(e.target.getAttribute('data-agenda-id'));
+    });
+
+    var buscaInput = document.getElementById('afBusca');
+    buscaInput.addEventListener('input', function(){ busca = buscaInput.value; renderTabela(); });
+
+    var salvarAgendaBtn = document.getElementById('agSalvar');
+    if(salvarAgendaBtn){
+      salvarAgendaBtn.addEventListener('click', function(){
+        var data = document.getElementById('agData').value;
+        var contrato = document.getElementById('agContrato').value.trim();
+        var serie = document.getElementById('agSerie').value.trim();
+        var resp = document.getElementById('agResp').value.trim();
+        var obs = document.getElementById('agObs').value.trim();
+        if(!data && !contrato && !serie){ return; }
+        var lista = lerStorage(AGENDA_KEY);
+        lista.push({ id: String(Date.now()), data:data, contrato:contrato, serie:serie, resp:resp, obs:obs, status:'pendente' });
+        salvarStorage(AGENDA_KEY, lista);
+        ['agData','agContrato','agSerie','agResp','agObs'].forEach(function(id){ document.getElementById(id).value = ''; });
+        renderAgenda();
+      });
+    }
+  }
+
+  function aplicarBase(data){
+    equipamentos = (Array.isArray(data) ? data : []).map(normalizarEquipamento).filter(function(e){ return e.serie; });
+    contratos = Array.from(new Set(equipamentos.map(function(e){ return String(e.contrato || '').trim(); }).filter(Boolean))).sort(function(a,b){ return a.localeCompare(b,'pt-BR'); });
+    if(!contratos.length && equipamentos.length){ contratos = ['Sem contrato']; }
+  }
+
+  function renderErroBase(main, err){
+    var temFallback = Array.isArray(window.EQUIPAMENTOS_DATA) && window.EQUIPAMENTOS_DATA.length;
+    if(temFallback){
+      try{
+        aplicarBase(window.EQUIPAMENTOS_DATA);
+        montarPagina(main);
+        return;
+      }catch(e){}
+    }
+    main.innerHTML = '<h1 class="titulo">Aferições</h1><div class="af-card"><h2 class="af-subtitle">Erro ao carregar base</h2><p class="table-counter">Não foi possível carregar <strong>equipamentos.json</strong>.</p><p class="table-counter">Como você está testando na máquina, abra o site por um servidor local, por exemplo com <strong>python -m http.server</strong>, ou use a versão com <strong>equipamentos-data.js</strong> incluída neste pacote.</p><p class="table-counter">Detalhe: '+esc(err && (err.message || err))+'</p></div>';
+  }
+
+  function carregar(){
+    aguardarMain(function(main){
+      main.innerHTML = '<h1 class="titulo">Aferições</h1><p class="page-meta"><span class="meta-chip">Carregando base de equipamentos…</span></p>';
+
+      // Em arquivo local (file://), muitos navegadores bloqueiam fetch de JSON por CORS.
+      // Por isso usamos equipamentos-data.js como fallback local, mantendo fetch para Neocities/servidor.
+      if(location.protocol === 'file:' && Array.isArray(window.EQUIPAMENTOS_DATA)){
+        aplicarBase(window.EQUIPAMENTOS_DATA);
+        montarPagina(main);
+        return;
+      }
+
+      fetch('equipamentos.json', {cache:'no-store'})
+        .then(function(resp){ if(!resp.ok) throw new Error('HTTP '+resp.status); return resp.json(); })
+        .then(function(data){
+          aplicarBase(data);
+          montarPagina(main);
+        })
+        .catch(function(err){ renderErroBase(main, err); });
+    });
+  }
+
+  carregar();
+})();
+</script>
+</body>
+</html>

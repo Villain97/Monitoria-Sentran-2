@@ -1,0 +1,80 @@
+<!doctype html><html lang="pt-br"><meta charset="UTF-8">  <link rel="dns-prefetch" href="https://maps.app.goo.gl"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Monitoria Sentran</title><link rel="stylesheet" href="styles.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"><meta name="theme-color" content="#080808"><meta name="robots" content="noindex, nofollow"><body><script src="main.js"></script><script>window.onload = function() {
+            var mainElement = document.querySelector('main'); // Seleciona o elemento <main>
+            if (mainElement) { // Verifica se o <main> existe
+                mainElement.innerHTML += ` 
+                 <h1 class="titulo">Guarujá</h1>
+
+        <div class="page-meta">
+          <span class="meta-chip"><strong>Regional IPEM</strong> RSANT</span>
+          <span class="meta-chip"><strong>CNPJ</strong> 02.679.522/0001-97 — DCT</span>
+          <span class="meta-chip"><strong>Cliente</strong> 0647501</span>
+          <span class="meta-chip"><strong>Porta</strong> 309</span>
+          <span class="meta-chip"><strong>Servidor</strong> 10.1.0.5</span>
+          <span class="meta-chip"><strong>IP Aplicação</strong> 10.20.180.1</span>
+        </div>
+
+        <table class="locais">
+                        <thead>
+                            <tr class="locais_tr">
+                                <th class="locais_th">Série</th>
+                                <th class="locais_th">Local</th>
+                                <th class="locais_th">Modelo</th>
+                                <th class="locais_th">Função</th>
+                            </tr> 
+                        </thead>
+                        <tbody id="tabelaLocais">
+                            <tr class="locais_tr">
+                                <td class="locais_td"><a class="acesso" href="HTTP://10.20.180.222:8989" target="_blank">SPLGRJ-1345</a></td>
+                                <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.966705,-46.262901" target="_blank">Av. Vereador Lydio Martins Correa s/n, a 400m. da Rod. Cônego Domênico Rangoni</a></td>
+                                <td class="locais_td">SPL-MFS1</td>
+                                <td class="locais_td">V</td>
+                            </tr>
+                            <tr class="locais_tr">
+                                <td class="locais_td"><a class="acesso" href="HTTP://10.20.180.82:8989" target="_blank">SPLGRJ-1346</a></td>
+                                <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.987158,-46.266844" target="_blank">Alameda das Margaridas, próximo ao N. 119</a></td>
+                                <td class="locais_td">SPL-MFS1</td>
+                                <td class="locais_td">V + LE</td>
+                            </tr>
+
+                            <tr class="locais_tr">
+                                <td class="locais_td"><a class="acesso" href="http://10.20.180.154:8989" target="_blank">SPLGRJ-1347</a></td>
+                                <td class="locais_td"><a class="endere" href="https://maps.app.goo.gl/5cWqQsWT8Xc8kuEM9" target="_blank">Alameda das Tulipas, oposto ao N. 281</a></td>
+                                <td class="locais_td">SPL-MFS1</td>
+                                <td class="locais_td">V + LE</td>
+                            </tr>
+
+                            <tr class="locais_tr">
+                                <td class="locais_td"><a class="acesso" href="HTTP://10.20.180.62:8989" target="_blank">SPLGRJ-1348</a></td>
+                                <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.947172,-46.297367" target="_blank">Av. Santos Dumont, próximo ao N. 466</a></td>
+                                <td class="locais_td">SPL-MFS1</td>
+                                <td class="locais_td">V + LE</td>
+                            </tr>
+                            <tr class="locais_tr">
+                                <td class="locais_td"><a class="acesso" href="HTTP://10.20.180.50:8989" target="_blank">SPLGRJ-1349</a></td>
+                                <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.984101,-46.267370" target="_blank">Av. Santos Dumont, próximo ao N. 891</a></td>
+                                <td class="locais_td">SPL-MFS1</td>
+                                <td class="locais_td">V + LE</td>
+                            </tr>
+                            <tr class="locais_tr">
+                                <td class="locais_td"><a class="acesso" href="http://10.20.180.138:8989" target="_blank">SPLGRJ-1350</a></td>
+                                <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.975150,-46.188925" target="_blank">Av. Marjory da Silva Prado, próximo ao N. 489</a></td>
+                                <td class="locais_td">SPL-MFS1</td>
+                                <td class="locais_td">V + LE</td>
+                            </tr>
+                            <tr class="locais_tr">
+                                <td class="locais_td"><a class="acesso" href="http://10.20.180.170:8989" target="_blank">SPLGRJ-1351</a></td>
+                                <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.962868,-46.186972" target="_blank">Av. Marjory da Silva Prado, próximo ao N. 1944</a></td>
+                                <td class="locais_td">SPL-MFS1</td>
+                                <td class="locais_td">V</td>
+                            </tr>
+                            <tr class="locais_tr">
+                                <td class="locais_td"><a class="acesso" href="HTTP://10.20.180.238:8989" target="_blank">SPLGRJ-1459</a></td>
+                                <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.979406,-46.223057" target="_blank">Rua Des. Plínio Carvalho Pinto, próximo ao N. 676</a></td>
+                                <td class="locais_td">SPL-MFS1</td>
+                                <td class="locais_td">L+V</td>
+                            </tr>
+                        </tbody>
+                    </table>
+          `; 
+            }
+        };</script>

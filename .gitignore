@@ -1,0 +1,37 @@
+# Credenciais e variáveis locais
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+
+# Logs e arquivos temporários
+logs/
+*.log
+*.tmp
+*.bak
+*.old
+*.zip
+
+# Relatórios baixados/processados
+relatorios/
+data/relatorios/
+*.xlsx
+*.xls
+*.csv
+*.pdf
+
+# Sistema operacional / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

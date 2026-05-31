@@ -1,0 +1,48 @@
+<!doctype html><html lang="pt-br"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Equipamentos — Monitoria Sentran</title><link rel="stylesheet" href="styles.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"><meta name="theme-color" content="#080808"><meta name="robots" content="noindex, nofollow"><body><script src="main.js"></script><script>window.addEventListener('DOMContentLoaded', function () {
+      var main = document.getElementById('main-content');
+      if (!main) return;
+
+      var cidades = [
+        ['Amparo',                 'amparo.html'],
+        ['Arujá',                  'aruja.html'],
+        ['Bertioga',               'bertioga.html'],
+        ['Boituva',                'boituva.html'],
+        ['Cajamar',                'cajamar.html'],
+        ['Cordeirópolis',          'cordeiropolis.html'],
+        ['Cubatão',                'cubatao.html'],
+        ['Diadema',                'diadema.html'],
+        ['Embu',                   'embu.html'],
+        ['Ferraz de Vasconcelos',  'ferrazdevasconcelos.html'],
+        ['Francisco Morato',       'franciscomorato.html'],
+        ['Gov. Valadares',         'govvaladares.html'],
+        ['Guarujá',                'guaruja.html'],
+        ['Itapecerica',            'itapecerica.html'],
+        ['Jacareí',                'jacarei.html'],
+        ['Jaguariúna',             'jaguariuna.html'],
+        ['Limeira',                'limeiraspl.html'],
+        ['Osasco',                 'Osasco.html'],
+        ['Praia Grande',           'praiagrandespl.html'],
+        ['Ribeirão Pires',         'ribeiraopires.html'],
+        ['Santa Bárbara d\'Oeste', 'santabarbaradoeste.html'],
+        ['Santa Isabel',           'santaisabel.html'],
+        ['Santo Antônio do Pinhal','santoantoniodopinhal.html'],
+        ['São Sebastião',          'saosebastiao.html'],
+        ['Suzano',                 'suzano.html'],
+        ['Valinhos',               'valinhos.html'],
+        ['Vinhedo',                'vinhedospl.html'],
+        ['Parquímetro Ubatuba',    'parquimetroubatuba.html'],
+        ['Parquímetro Vinhedo',    'parquimetrovinhedo.html'],
+      ];
+
+      var btns = cidades.map(function(c) {
+        return '<a class="botao" href="' + c[1] + '">' + c[0] + '</a>';
+      }).join('');
+
+      main.innerHTML = `
+        <h1 class="titulo">Equipamentos</h1>
+        <p style="color:var(--cinza);font-size:0.88rem;margin-bottom:24px;">
+          Selecione a cidade para acessar os equipamentos instalados.
+        </p>
+        <div class="btn-grid btn-grid--large">${btns}</div>
+      `;
+    });</script>

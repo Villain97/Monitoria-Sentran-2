@@ -1,0 +1,23 @@
+<!doctype html><html lang="pt-br"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Monitoria Sentran</title><link rel="stylesheet" href="styles.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"><meta name="theme-color" content="#080808"><meta name="robots" content="noindex, nofollow"><body><script src="main.js"></script><script>window.addEventListener('DOMContentLoaded', function () {
+      var main = document.getElementById('main-content');
+      if (!main) return;
+
+      main.innerHTML = `
+        <h1 class="titulo">Menu Principal</h1>
+        <p style="color:var(--cinza);font-size:0.88rem;margin-bottom:24px;">
+          Selecione um sistema para acessar.
+        </p>
+
+        <div class="btn-grid btn-grid--large">
+          <a class="botao" href="https://app.checkmob.com/Account/Login" target="_blank" rel="noopener">Checkmob</a>
+          <a class="botao" href="https://painel.cobli.co/home" target="_blank" rel="noopener">Cobli</a>
+          <a class="botao" href="https://gmitapecerica.cconet.com.br/login" target="_blank" rel="noopener">CCO.net — Itape</a>
+          <a class="botao" href="https://gmaruja.cconet.com.br/login" target="_blank" rel="noopener">CCO.net — Arujá</a>
+          <a class="botao" href="https://servicos.rbmlq.gov.br/Auth/Login" target="_blank" rel="noopener">PSIE</a>
+          <a class="botao" href="http://i9ia.io:3343/login" target="_blank" rel="noopener">PMV</a>
+          <a class="botao" href="https://totvs-app.sentran.com.br:5000/01/#/login" target="_blank" rel="noopener">Meu RH</a>
+          <a class="botao" href="https://universidade.sentran.com.br/" target="_blank" rel="noopener">Universidade sentran</a><a class="botao index-occ-btn" href="ocorrencias.html">⚠️ Ocorrências</a>
+          <a class="botao index-af-btn" href="afericao.html">📅 Aferições</a>
+        </div>
+      `;
+    });</script>

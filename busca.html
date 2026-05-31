@@ -1,0 +1,192 @@
+<!doctype html><html lang="pt-br"><meta charset="UTF-8"><meta name="dns-prefetch" href="https://maps.app.goo.gl"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Busca Global — Monitoria Sentran</title><link rel="stylesheet" href="styles.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"><meta name="theme-color" content="#080808"><meta name="robots" content="noindex, nofollow"><body><script src="main.js"></script><script>/* Busca Global — lógica completamente isolada em IIFE */
+(function () {
+
+  /* Aguarda o shell do main.js injetar #main-content */
+  function waitForMain(cb) {
+    var el = document.getElementById('main-content');
+    if (el) { cb(el); return; }
+    var obs = new MutationObserver(function () {
+      var el2 = document.getElementById('main-content');
+      if (el2) { obs.disconnect(); cb(el2); }
+    });
+    obs.observe(document.body, { childList: true, subtree: true });
+  }
+
+  waitForMain(function (main) {
+
+    /* ── Injeta HTML da página ── */
+    main.innerHTML =
+      '<h1 class="titulo">🔍 Busca Global</h1>' +
+      '<p style="color:var(--cinza);font-size:.88rem;margin-bottom:20px">Pesquise por série, endereço, modelo, função ou cidade entre todos os equipamentos instalados.</p>' +
+      '<div class="busca-input-wrap"><input type="search" id="buscaInput" class="busca-input" placeholder="Ex: SPLARJ-234 · Av. Paulista · SPL-MFS1 · Osasco · V+RC" autocomplete="off" spellcheck="false"></div>' +
+      '<div class="busca-filters-row" id="buscaFilters"></div>' +
+      '<div class="busca-func-row" id="buscaFuncRow"></div>' +
+      '<p class="busca-stats" id="buscaStats">Carregando equipamentos…</p>' +
+      '<div class="busca-results" id="buscaResults"></div>';
+
+    var inputEl   = document.getElementById('buscaInput');
+    var filtersEl = document.getElementById('buscaFilters');
+    var funcRowEl = document.getElementById('buscaFuncRow');
+    var statsEl   = document.getElementById('buscaStats');
+    var resultsEl = document.getElementById('buscaResults');
+
+    var allData    = [];
+    var activeCity = '';
+    var activeFunc = '';
+    var query      = '';
+    var debounce;
+
+    /* ── Utilitários ── */
+    function esc(s) {
+      return String(s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    function hi(text, q) {
+      if (!q) return esc(text);
+      var re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+      return esc(text).replace(re, '<mark class="busca-highlight">$1</mark>');
+    }
+
+    /* ── Cria botão de filtro ── */
+    function makeBtn(label, value, group, onClick) {
+      var btn = document.createElement('button');
+      btn.className = 'busca-filter-btn';
+      btn.textContent = label;
+      btn.dataset.val = value;
+      btn.addEventListener('click', function () {
+        group.querySelectorAll('.busca-filter-btn').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        onClick(value);
+        render();
+      });
+      return btn;
+    }
+
+    /* ── Renderiza resultados ── */
+    function render() {
+      var q = query.toLowerCase();
+
+      var filtered = allData.filter(function (d) {
+        var okCity = !activeCity || d.cidade === activeCity;
+        var okFunc = !activeFunc || d.funcao === activeFunc || d.funcao.indexOf(activeFunc) !== -1;
+        var okText = !q ||
+          d.serie.toLowerCase().indexOf(q) !== -1 ||
+          d.endereco.toLowerCase().indexOf(q) !== -1 ||
+          d.modelo.toLowerCase().indexOf(q) !== -1 ||
+          d.cidade.toLowerCase().indexOf(q) !== -1 ||
+          d.funcao.toLowerCase().indexOf(q) !== -1;
+        return okCity && okFunc && okText;
+      });
+
+      var total = filtered.length;
+      statsEl.textContent =
+        total + ' de ' + allData.length + ' equipamentos' +
+        (activeCity ? ' em ' + activeCity : '') +
+        (activeFunc ? ' · função ' + activeFunc : '') +
+        (query ? ' para "' + query + '"' : '');
+
+      if (!total) {
+        resultsEl.innerHTML =
+          '<div class="busca-empty">' +
+          '<span class="busca-empty-icon">📡</span>' +
+          'Nenhum equipamento encontrado.' +
+          (query ? '<br><span style="font-size:.78rem;margin-top:6px;display:block">Tente outro termo ou remova os filtros</span>' : '') +
+          '</div>';
+        return;
+      }
+
+      var shown = filtered.slice(0, 300);
+      var html = shown.map(function (d) {
+        var hasIP   = d.ip   && d.ip   !== '#';
+        var hasMaps = d.maps && d.maps !== '#';
+        var ipLink  = hasIP
+          ? '<a class="busca-link primary" href="' + esc(d.ip) + '" target="_blank" rel="noopener">🖥 Acessar</a>'
+          : '<span class="busca-link disabled">Sem IP</span>';
+        var mapsLink = hasMaps
+          ? '<a class="busca-link" href="' + esc(d.maps) + '" target="_blank" rel="noopener">📍 Maps</a>'
+          : '';
+        var cityLink = '<a class="busca-link" href="' + esc(d.arquivo) + '">🏙 ' + esc(d.cidade) + '</a>';
+        return (
+          '<div class="busca-card">' +
+            '<div class="busca-serie">' + hi(d.serie, query) + '</div>' +
+            '<div class="busca-info">' +
+              '<span class="busca-endereco">' + hi(d.endereco, query) + '</span>' +
+              '<div class="busca-tags">' +
+                '<span class="busca-tag cidade">' + esc(d.cidade) + '</span>' +
+                '<span class="busca-tag">' + esc(d.modelo) + '</span>' +
+                '<span class="busca-tag func">' + esc(d.funcao) + '</span>' +
+              '</div>' +
+            '</div>' +
+            '<div class="busca-actions">' + ipLink + mapsLink + cityLink + '</div>' +
+          '</div>'
+        );
+      }).join('');
+
+      if (total > 300) {
+        html += '<p class="busca-overflow">Exibindo 300 de ' + total + ' — refine a busca para ver mais</p>';
+      }
+
+      resultsEl.innerHTML = html;
+    }
+
+    /* ── Carrega JSON ── */
+    fetch('equipamentos.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        allData = data;
+
+        /* Filtros de cidade */
+        var cidades = [];
+        data.forEach(function (d) { if (cidades.indexOf(d.cidade) === -1) cidades.push(d.cidade); });
+        cidades.sort();
+
+        var allCityBtn = makeBtn('Todas as cidades (' + data.length + ')', '', filtersEl, function (v) { activeCity = v; });
+        allCityBtn.classList.add('active');
+        filtersEl.appendChild(allCityBtn);
+        cidades.forEach(function (c) {
+          var count = data.filter(function (d) { return d.cidade === c; }).length;
+          filtersEl.appendChild(makeBtn(c + ' (' + count + ')', c, filtersEl, function (v) { activeCity = v; }));
+        });
+
+        /* Filtros de função */
+        var funcs = {};
+        data.forEach(function (d) { funcs[d.funcao] = (funcs[d.funcao] || 0) + 1; });
+        var funcKeys = Object.keys(funcs).sort();
+
+        var allFuncBtn = makeBtn('Todas as funções', '', funcRowEl, function (v) { activeFunc = v; });
+        allFuncBtn.classList.add('active');
+        funcRowEl.appendChild(allFuncBtn);
+        funcKeys.forEach(function (f) {
+          funcRowEl.appendChild(makeBtn(f + ' (' + funcs[f] + ')', f, funcRowEl, function (v) { activeFunc = v; }));
+        });
+
+        statsEl.textContent = data.length + ' equipamentos em ' + cidades.length + ' cidades — comece a digitar';
+        render();
+
+        /* Foco no input após render */
+        setTimeout(function () { inputEl.focus(); }, 100);
+      })
+      .catch(function (err) {
+        statsEl.textContent = '⚠️ Erro ao carregar equipamentos.json — verifique se o arquivo está no mesmo diretório.';
+        console.error(err);
+      });
+
+    /* ── Input de busca ── */
+    inputEl.addEventListener('input', function () {
+      clearTimeout(debounce);
+      debounce = setTimeout(function () {
+        query = inputEl.value.trim();
+        render();
+      }, 150);
+    });
+
+    /* Limpa query ao clicar no X do input[type=search] */
+    inputEl.addEventListener('search', function () {
+      query = inputEl.value.trim();
+      render();
+    });
+
+  }); /* waitForMain */
+
+})();</script>

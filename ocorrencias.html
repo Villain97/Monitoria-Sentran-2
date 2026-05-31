@@ -1,0 +1,307 @@
+<!doctype html><html lang="pt-br"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ocorrências — Monitoria Sentran</title><link rel="stylesheet" href="styles.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"><meta name="theme-color" content="#080808"><meta name="robots" content="noindex, nofollow"><body><script src="main.js"></script><script>(function () {
+  var OCC_KEY = 'sentran-ocorrencias';
+
+  var TIPO_META = {
+    'Manutenção': { icon: '🔧', color: '#f59e0b' },
+    'Offline':    { icon: '🔴', color: '#ef4444' },
+    'Obras':      { icon: '🚧', color: '#3b82f6' },
+    'Rompimentos':{ icon: '⚡', color: '#8b5cf6' },
+    'Resolvido':  { icon: '✅', color: '#10b981' },
+    'Ajuste de Câmeras': { icon: '🎥', color: '#06b6d4' },
+    'Solicitação': { icon: '📝', color: '#facc15' }
+  };
+
+  function getOcorrencias() {
+    try { return JSON.parse(localStorage.getItem(OCC_KEY)) || []; }
+    catch (e) { return []; }
+  }
+  function saveOcorrencias(list) {
+    try { localStorage.setItem(OCC_KEY, JSON.stringify(list)); } catch (e) {}
+  }
+  function isResolved(o) {
+    return !!(o && o.solucionado && o.solucao && o.dataSolucao);
+  }
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function formatDate(ts) {
+    if (!ts) return '';
+    var d = new Date(ts);
+    if (isNaN(d.getTime())) return '';
+    var dd = String(d.getDate()).padStart(2,'0');
+    var mm = String(d.getMonth()+1).padStart(2,'0');
+    var yy = d.getFullYear();
+    var hh = String(d.getHours()).padStart(2,'0');
+    var mi = String(d.getMinutes()).padStart(2,'0');
+    return dd+'/'+mm+'/'+yy+' '+hh+':'+mi;
+  }
+  function dateInputValue(ts) {
+    if (!ts) return '';
+    var d = new Date(ts);
+    if (isNaN(d.getTime())) return '';
+    var y = d.getFullYear();
+    var m = String(d.getMonth()+1).padStart(2,'0');
+    var day = String(d.getDate()).padStart(2,'0');
+    var h = String(d.getHours()).padStart(2,'0');
+    var min = String(d.getMinutes()).padStart(2,'0');
+    return y+'-'+m+'-'+day+'T'+h+':'+min;
+  }
+  function timeAgo(ts) {
+    var d = Math.floor((Date.now()-ts)/1000);
+    if (d < 60)    return 'agora';
+    if (d < 3600)  return Math.floor(d/60)+'min atrás';
+    if (d < 86400) return Math.floor(d/3600)+'h atrás';
+    return Math.floor(d/86400)+'d atrás';
+  }
+  function waitForMain(cb) {
+    var el = document.getElementById('main-content');
+    if (el) { cb(el); return; }
+    var obs = new MutationObserver(function () {
+      var el2 = document.getElementById('main-content');
+      if (el2) { obs.disconnect(); cb(el2); }
+    });
+    obs.observe(document.body, { childList: true, subtree: true });
+  }
+
+  waitForMain(function (main) {
+    var canEdit = !(window.SentranAuth && window.SentranAuth.isViewer && window.SentranAuth.isViewer());
+    main.innerHTML =
+      '<div class="occ-page-header">' +
+        '<h1 class="titulo">⚠️ Ocorrências</h1>' +
+        '<div class="occ-page-actions">' +
+          '<button class="occ-export-btn" id="occExportBtn">⬇️ Exportar CSV</button>' +
+        '</div>' +
+      '</div>' +
+      '<p style="color:var(--cinza);font-size:.88rem;margin-bottom:20px">Registros organizados por contrato em ordem alfabética. Use “Solucionado” para enviar uma ocorrência ao filtro Resolvido após preencher solução e data.</p>' +
+      '<div class="occ-toolbar">' +
+        '<input type="search" class="busca-input" id="occSearch" placeholder="🔍  Buscar por série, contrato, técnico, tipo, solução…">' +
+        '<div class="occ-tipo-filters" id="occTipoFilters"></div>' +
+      '</div>' +
+      '<div class="occ-stats-row" id="occStatsRow"></div>' +
+      '<div id="occList" class="occ-list"></div>' +
+      '<div class="occ-edit-overlay" id="occEditOverlay" style="display:none">' +
+        '<div class="occ-edit-modal">' +
+          '<div class="occ-modal-header"><h2 class="occ-modal-title" id="occEditTitle">Editar ocorrência</h2><button class="occ-modal-close" id="occEditClose">✕</button></div>' +
+          '<div class="occ-modal-body">' +
+            '<input type="hidden" id="occEditId">' +
+            '<div class="occ-form-row"><label class="occ-label">Tipo</label><select class="occ-input" id="occEditTipo"></select></div>' +
+            '<div class="occ-form-row"><label class="occ-label">Técnico</label><input class="occ-input" id="occEditTecnico" placeholder="Nome do técnico"></div>' +
+            '<div class="occ-form-row"><label class="occ-label">Descrição</label><textarea class="occ-textarea" id="occEditDesc" placeholder="Descreva a ocorrência"></textarea></div>' +
+            '<div class="occ-solution-box">' +
+              '<label class="occ-solved-check"><input type="checkbox" id="occEditSolucionado"> <span>Solucionado</span></label>' +
+              '<div class="occ-form-row"><label class="occ-label">Solução aplicada</label><textarea class="occ-textarea" id="occEditSolucao" placeholder="Informe como a ocorrência foi solucionada"></textarea></div>' +
+              '<div class="occ-form-row"><label class="occ-label">Data da solução</label><input class="occ-input" type="datetime-local" id="occEditDataSolucao"></div>' +
+              '<p class="occ-help-text">A ocorrência só aparece no filtro Resolvido quando solução e data estiverem preenchidas.</p>' +
+            '</div>' +
+          '</div>' +
+          '<div class="occ-modal-footer"><button class="occ-cancel-btn" id="occEditCancel">Cancelar</button><button class="occ-save-btn" id="occEditSave">Salvar alterações</button></div>' +
+        '</div>' +
+      '</div>';
+
+    var searchEl = document.getElementById('occSearch');
+    var tipoFilters = document.getElementById('occTipoFilters');
+    var statRow = document.getElementById('occStatsRow');
+    var listEl = document.getElementById('occList');
+    var exportBtn = document.getElementById('occExportBtn');
+    if (!canEdit && exportBtn) exportBtn.style.display = 'none';
+    var editOverlay = document.getElementById('occEditOverlay');
+    var editId = document.getElementById('occEditId');
+    var editTipo = document.getElementById('occEditTipo');
+    var editTecnico = document.getElementById('occEditTecnico');
+    var editDesc = document.getElementById('occEditDesc');
+    var editSolucionado = document.getElementById('occEditSolucionado');
+    var editSolucao = document.getElementById('occEditSolucao');
+    var editDataSolucao = document.getElementById('occEditDataSolucao');
+    var activeTipo = '';
+    var searchQ = '';
+    var debounce;
+
+    Object.keys(TIPO_META).filter(function (t) { return t !== 'Resolvido'; }).forEach(function (t) {
+      var opt = document.createElement('option'); opt.value = t; opt.textContent = t; editTipo.appendChild(opt);
+    });
+
+    var allTipoBtn = makeTipoBtn('Todos', '');
+    allTipoBtn.classList.add('active');
+    tipoFilters.appendChild(allTipoBtn);
+    ['Solicitação','Manutenção','Offline','Obras','Rompimentos','Ajuste de Câmeras','Resolvido'].forEach(function (t) {
+      tipoFilters.appendChild(makeTipoBtn(TIPO_META[t].icon + ' ' + t, t));
+    });
+
+    function makeTipoBtn(label, value) {
+      var btn = document.createElement('button');
+      btn.className = 'busca-filter-btn';
+      btn.textContent = label;
+      btn.addEventListener('click', function () {
+        tipoFilters.querySelectorAll('.busca-filter-btn').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        activeTipo = value;
+        render();
+      });
+      return btn;
+    }
+
+    function getSortedList() {
+      return getOcorrencias().slice().sort(function (a, b) {
+        var ca = (a.cidade || '').localeCompare(b.cidade || '', 'pt-BR', { sensitivity:'base' });
+        if (ca !== 0) return ca;
+        return String(a.serie || '').localeCompare(String(b.serie || ''), 'pt-BR', { numeric:true, sensitivity:'base' });
+      });
+    }
+
+    function render() {
+      var all = getSortedList();
+      var q = searchQ.toLowerCase();
+      var filtered = all.filter(function (o) {
+        var resolved = isResolved(o);
+        var okTipo = activeTipo === 'Resolvido' ? resolved : (!resolved && (!activeTipo || o.tipo === activeTipo));
+        var okText = !q ||
+          (o.serie && o.serie.toLowerCase().indexOf(q) !== -1) ||
+          (o.cidade && o.cidade.toLowerCase().indexOf(q) !== -1) ||
+          (o.tecnico && o.tecnico.toLowerCase().indexOf(q) !== -1) ||
+          (o.tipo && o.tipo.toLowerCase().indexOf(q) !== -1) ||
+          (o.desc && o.desc.toLowerCase().indexOf(q) !== -1) ||
+          (o.solucao && o.solucao.toLowerCase().indexOf(q) !== -1) ||
+          (o.endereco && o.endereco.toLowerCase().indexOf(q) !== -1);
+        return okTipo && okText;
+      });
+
+      var counts = {};
+      filtered.forEach(function (o) {
+        var key = isResolved(o) ? 'Resolvido' : o.tipo;
+        counts[key] = (counts[key] || 0) + 1;
+      });
+      var statsHtml = '<span class="occ-stat-total">' + filtered.length + ' registro' + (filtered.length !== 1 ? 's' : '') + '</span>';
+      Object.keys(counts).sort().forEach(function (t) {
+        var m = TIPO_META[t] || { icon: '📌', color: 'var(--cinza)' };
+        statsHtml += '<span class="occ-stat-chip" style="--chip-color:' + m.color + '">' + m.icon + ' ' + counts[t] + ' ' + t + '</span>';
+      });
+      statRow.innerHTML = statsHtml;
+
+      if (!filtered.length) {
+        listEl.innerHTML = '<div class="busca-empty"><span class="busca-empty-icon">' + (all.length ? '🔍' : '📋') + '</span>' + (all.length ? 'Nenhuma ocorrência encontrada para esses filtros.' : 'Nenhuma ocorrência registrada ainda.<br><span style="font-size:.8rem;margin-top:6px;display:block">Acesse uma cidade e clique no botão ＋ ao lado de um equipamento.</span>') + '</div>';
+        return;
+      }
+
+      var lastContrato = null;
+      var html = '';
+      filtered.forEach(function (o) {
+        var resolved = isResolved(o);
+        var shownTipo = resolved ? 'Resolvido' : o.tipo;
+        var meta = TIPO_META[shownTipo] || { icon: '📌', color: 'var(--cinza)' };
+        var contrato = o.cidade || 'Sem contrato';
+        if (contrato !== lastContrato) {
+          lastContrato = contrato;
+          html += '<div class="occ-contract-title">' + esc(contrato) + '</div>';
+        }
+        html += '<div class="occ-record' + (resolved ? ' occ-record--resolved' : '') + '" data-id="' + esc(o.id) + '">' +
+          '<div class="occ-record-tipo" style="--tipo-color:' + meta.color + '"><span class="occ-record-icon">' + meta.icon + '</span><span class="occ-record-type-label">' + esc(shownTipo) + '</span></div>' +
+          '<div class="occ-record-body">' +
+            '<div class="occ-record-top"><span class="occ-record-serie">' + esc(o.serie) + '</span>' +
+              '<span class="occ-record-cidade">' + esc(contrato) + '</span>' +
+              (o.endereco ? '<span class="occ-record-end">' + esc(o.endereco) + '</span>' : '') + '</div>' +
+            '<p class="occ-record-desc">' + esc(o.desc) + '</p>' +
+            (resolved ? '<div class="occ-solution-view"><strong>✅ Solução:</strong> ' + esc(o.solucao) + '<br><span>📅 Solucionado em ' + formatDate(o.dataSolucao) + '</span></div>' : '') +
+            '<div class="occ-record-meta">' +
+              (o.tecnico ? '<span>👤 ' + esc(o.tecnico) + '</span>' : '') +
+              '<span title="' + formatDate(o.ts) + '">🕐 ' + timeAgo(o.ts) + ' · ' + formatDate(o.ts) + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="occ-record-actions">' +
+            (canEdit ? '<button class="occ-edit-btn" data-id="' + esc(o.id) + '" title="Editar ocorrência">✎</button>' +
+            (!resolved ? '<button class="occ-solve-btn" data-id="' + esc(o.id) + '" title="Marcar como solucionado">✓</button>' : '') +
+            '<button class="occ-delete-btn" data-id="' + esc(o.id) + '" title="Excluir ocorrência" aria-label="Excluir">✕</button>' : '') +
+          '</div>' +
+        '</div>';
+      });
+      listEl.innerHTML = html;
+    }
+
+    function openEdit(id, forceSolved) {
+      var item = getOcorrencias().find(function (o) { return o.id === id; });
+      if (!item) return;
+      editId.value = item.id;
+      editTipo.value = item.tipo === 'Resolvido' ? 'Manutenção' : (item.tipo || 'Manutenção');
+      editTecnico.value = item.tecnico || '';
+      editDesc.value = item.desc || '';
+      editSolucionado.checked = forceSolved || isResolved(item);
+      editSolucao.value = item.solucao || '';
+      editDataSolucao.value = dateInputValue(item.dataSolucao) || (forceSolved ? dateInputValue(Date.now()) : '');
+      editOverlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      setTimeout(function () { (forceSolved ? editSolucao : editDesc).focus(); }, 50);
+    }
+    function closeEdit() {
+      editOverlay.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    listEl.addEventListener('click', function (e) {
+      var edit = e.target.closest('.occ-edit-btn');
+      var solve = e.target.closest('.occ-solve-btn');
+      var del = e.target.closest('.occ-delete-btn');
+      if (edit) return openEdit(edit.dataset.id, false);
+      if (solve) return openEdit(solve.dataset.id, true);
+      if (!del) return;
+      if (!confirm('Excluir esta ocorrência?')) return;
+      saveOcorrencias(getOcorrencias().filter(function (o) { return o.id !== del.dataset.id; }));
+      render();
+    });
+
+    document.getElementById('occEditClose').addEventListener('click', closeEdit);
+    document.getElementById('occEditCancel').addEventListener('click', closeEdit);
+    editOverlay.addEventListener('click', function (e) { if (e.target === editOverlay) closeEdit(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && editOverlay.style.display !== 'none') closeEdit(); });
+
+    document.getElementById('occEditSave').addEventListener('click', function () {
+      var desc = editDesc.value.trim();
+      var solved = editSolucionado.checked;
+      var solucao = editSolucao.value.trim();
+      var dataSolucao = editDataSolucao.value ? new Date(editDataSolucao.value).getTime() : 0;
+      editDesc.classList.toggle('occ-input--error', !desc);
+      editSolucao.classList.toggle('occ-input--error', solved && !solucao);
+      editDataSolucao.classList.toggle('occ-input--error', solved && !dataSolucao);
+      if (!desc || (solved && (!solucao || !dataSolucao))) {
+        alert('Para marcar como solucionado, preencha a solução e a data da solução.');
+        return;
+      }
+      var list = getOcorrencias().map(function (o) {
+        if (o.id !== editId.value) return o;
+        o.tipo = editTipo.value;
+        o.tecnico = editTecnico.value.trim();
+        o.desc = desc;
+        o.solucionado = solved;
+        o.solucao = solved ? solucao : '';
+        o.dataSolucao = solved ? dataSolucao : null;
+        o.updatedAt = Date.now();
+        return o;
+      });
+      saveOcorrencias(list);
+      closeEdit();
+      render();
+    });
+
+    searchEl.addEventListener('input', function () {
+      clearTimeout(debounce);
+      debounce = setTimeout(function () { searchQ = searchEl.value.trim(); render(); }, 150);
+    });
+    searchEl.addEventListener('search', function () { searchQ = searchEl.value.trim(); render(); });
+
+    exportBtn.addEventListener('click', function () {
+      var all = getSortedList();
+      if (!all.length) { alert('Nenhuma ocorrência para exportar.'); return; }
+      var rows = [['ID','Série','Contrato','Endereço','Tipo','Status','Técnico','Descrição','Data','Solução','Data da solução']];
+      all.forEach(function (o) {
+        var resolved = isResolved(o);
+        rows.push([o.id, o.serie, o.cidade||'', o.endereco||'', o.tipo, resolved ? 'Resolvido' : 'Aberto', o.tecnico||'', o.desc, formatDate(o.ts), o.solucao||'', formatDate(o.dataSolucao)]);
+      });
+      var csv = rows.map(function (r) { return r.map(function (c) { return '"' + String(c || '').replace(/"/g,'""') + '"'; }).join(','); }).join('\n');
+      var blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = 'ocorrencias_sentran_' + Date.now() + '.csv';
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+
+    render();
+  });
+})();</script>

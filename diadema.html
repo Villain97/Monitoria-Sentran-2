@@ -1,0 +1,217 @@
+<!doctype html><html lang="pt-br"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Monitoria Sentran</title><link rel="stylesheet" href="styles.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"><meta name="theme-color" content="#080808"><meta name="robots" content="noindex, nofollow"><body><script src="main.js"></script><script>window.onload = function() {
+            var mainElement = document.querySelector('main'); // Seleciona o elemento <main>
+            if (mainElement) { // Verifica se o <main> existe
+                mainElement.innerHTML += ` 
+                 <h1 class="titulo">Diadema</h1>
+
+        <div class="page-meta">
+          <span class="meta-chip"><strong>Regional IPEM</strong> RSAND</span>
+          <span class="meta-chip"><strong>CNPJ</strong> 74.434.911/0002-44 — Arco-Iris Sinalização Viária LTDA</span>
+          <span class="meta-chip"><strong>Cliente</strong> 0637701</span>
+          <span class="meta-chip"><strong>Porta</strong> 285</span>
+          <span class="meta-chip"><strong>Servidor</strong> 10.20.130.1</span>
+          <span class="meta-chip"><strong>IP Aplicação</strong> 10.20.90.1</span>
+        </div>
+
+        <table class="locais">
+                    <thead>
+                    <tr class="locais_tr">
+                    <th class="locais_th">Série</th> 
+                    <th class="locais_th">Local</th>
+                    <th class="locais_th">Modelo</th>
+                    <th class="locais_th">Função</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tabelaLocais">
+                    <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.138:8989" target="_blank">SPLDIA-1000</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.722237,-46.615258" target="_blank">Av. Nossa Senhora dos Navegantes, próximo do N. 1376</a></td>
+                    <td class="locais_td">SPL-MFS1</td>
+                    <td class="locais_td">V+O+CE</td>
+                    </tr>
+                    <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.142:8989" target="_blank">SPLDIA-1001</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.677726,-46.591974" target="_blank">Av. Corredor Abd, próximo do N. 1306</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+O+CE</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.10:8989" target="_blank">SPLDIA-1002</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.682480,-46.601729" target="_blank">Av. Fábio Eduardo Ramos Esquível, próximo do N. 2599</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+O+CE</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.26:8989" target="_blank">SPLDIA-1003</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.682543,-46.601358" target="_blank">Av. Fábio Eduardo Ramos Esquível, próximo do N. 2560</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+O+CE</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.46:8989" target="_blank">SPLDIA-1004</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.684662,-46.632067" target="_blank">Av. Presidente Kenedy, próximo do N. 653</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+O+CE</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.98:8989" target="_blank">SPLDIA-1005</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.678831,-46.627363" target="_blank">Av. Conceição, próximo do N. 743</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+O+CE</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.74:8989" target="_blank">SPLDIA-1006</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.702158,-46.626229" target="_blank">Av. Alda, próximo do N. 1904</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+O+CE</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.38:8989" target="_blank">SPLDIA-1007</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.706907,-46.617650" target="_blank">Estrada do Rufino, próximo do N. 565</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+O+CE</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.42:8989" target="_blank">SPLDIA-1008</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.688293,-46.619244" target="_blank">R. Amélia Eugênia, oposto do N. 260</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+O+CE</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.50:8989" target="_blank">SPLDIA-1009</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.686463,-46.612645" target="_blank">R. Benjamin Constant, próximo do N. 2770</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+O+CE</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.58:8989" target="_blank">SPLDIA-1010</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.669827,-46.615198" target="_blank">Av. Paranapanema, próximo do N. 1057</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+O+CE</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.14:8989" target="_blank">SPLDIA-1011</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.689811,-46.590359" target="_blank">Av. Piraporinha, próximo do N. 1153</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+A+P+O+CE</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.94:8989" target="_blank">SPLDIA-1012</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.663737,-46.620389" target="_blank">Av. Brasília, próximo do N. 917</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+O+CE</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.62:8989" target="_blank">SPLDIA-1340</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.689108,-46.625940" target="_blank">Av. Alda x R. Izaurino Lopes da Silva</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+A+P+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.102:8989" target="_blank">SPLDIA-1341</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.698441,-46.626553" target="_blank">Avenida Dr. Ulysses Guimarães, próximo ao N. 217</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.66:8989" target="_blank">SPLDIA-1342</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.684057,-46.608582" target="_blank">Av. Fábio Eduardo Ramos Esquível, sob viaduto da Rod. dos Imigrantes</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.78:8989" target="_blank">SPLDIA-1386</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.684976,-46.612455" target="_blank">Av. Fábio Eduardo Ramos Esquível, próximo à Pç. 8 de dezembro</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+A+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.114:8989" target="_blank">SPLDIA-1398</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.688561,-46.602581" target="_blank">Avenida Dr. Ulysses Guimarães, próximo ao N. 3220</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.86:8989" target="_blank">SPLDIA-1399</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.685683,-46.600209" target="_blank">Avenida Dr. Ulysses Guimarães x Av. Dona Ruyce F. Alvim</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+A+P+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.34:8989" target="_blank">SPLDIA-1400</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.693173,-46.615845" target="_blank">Avenida Dr. Ulysses Guimarães, próximo à R. Ceci</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+A+P+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.130:8989" target="_blank">SPLDIA-1402</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.720252,-46.612799" target="_blank">Av. Antônio Sylvio C. Bueno x R. Ipitá</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+A+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.110:8989" target="_blank">SPLDIA-1403</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.699640,-46.590140" target="_blank">Av. Casa Grande, próximo à R. Mem de Sá</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+A+P+O+CE</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.118:8989" target="_blank">SPLDIA-1404</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.700141,-46.590250" target="_blank">Av. Casa Grande, próximo à R. Mem de Sá</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+A+P+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.134:8989" target="_blank">SPLDIA-1405</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.692894,-46.615785" target="_blank">Avenida Dr. Ulysses Guimarães, próximo à E. E. Eça de Queiroz</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+A+P+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.106:8989" target="_blank">SPLDIA-1406</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.701099,-46.606433" target="_blank">Av. Dona Ruyce Ferraz Alvim, próximo ao N. 2151</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.162:8989" target="_blank">SPLDIA-1407</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.692549,-46.627978" target="_blank">Av. Alda, próximo à R. Natal</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+A+P+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.154:8989" target="_blank">SPLDIA-1408</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.686733,-46.621899" target="_blank">R. Manoel da Nóbrega, próximo ao N. 99</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">L+V+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.6:8989" target="_blank">SPLDIA-1409</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.678737,-46.592793" target="_blank">Av. Corredor ABD, próximo à Av. Fukuichi Nakata</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+A+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.202:8989" target="_blank">SPLDIA-1410</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.685304,-46.617231" target="_blank">Av. Fábio Eduardo Ramos Esquível x Av. Prestes Maia</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+A+P+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.18:8989" target="_blank">SPLDIA-1411</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.685040,-46.627268" target="_blank">Av. Presidente Kennedy x R. São Joaquim</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+A+P+O</td>
+                    </tr>
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.130.30:8989" target="_blank">SPLDIA-1412</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.684234,-46.632626" target="_blank">Av. Presidente Kennedy, próximo à R. Santo Amaro</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+A+P+O</td>
+                    </tr>
+                </tbody>
+            </table>
+                  
+          `; 
+            }
+        };</script>

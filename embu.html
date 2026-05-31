@@ -1,0 +1,241 @@
+<!doctype html><html lang="pt-br"><meta charset="UTF-8">  <link rel="dns-prefetch" href="https://maps.app.goo.gl"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Monitoria Sentran</title><link rel="stylesheet" href="styles.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"><meta name="theme-color" content="#080808"><meta name="robots" content="noindex, nofollow"><body><script src="main.js"></script><script>window.onload = function() {
+            var mainElement = document.querySelector('main'); // Seleciona o elemento <main>
+            if (mainElement) { // Verifica se o <main> existe
+                mainElement.innerHTML += ` 
+
+                    <h1 class="titulo">Embu</h1>
+
+        <div class="page-meta">
+          <span class="meta-chip"><strong>Regional IPEM</strong> RCSUL</span>
+          <span class="meta-chip"><strong>CNPJ</strong> 02.734.092/0001-69 — Sentran</span>
+          <span class="meta-chip"><strong>Cliente</strong> 0640101</span>
+          <span class="meta-chip"><strong>Porta</strong> 275</span>
+          <span class="meta-chip"><strong>Servidor</strong> 10.1.0.5</span>
+          <span class="meta-chip"><strong>IP Aplicação</strong> 10.20.100.1</span>
+        </div>
+
+        <table class="locais">
+    <thead>
+        <tr class="locais_tr">
+            <th class="locais_th">Série</th>
+            <th class="locais_th">Local</th>
+            <th class="locais_th">Modelo</th>
+            <th class="locais_th">Função</th>
+        </tr> 
+    </thead>
+    <tbody id="tabelaLocais">
+        <tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.30:8989" target="_blank">SPLEMB-0244</a></td>
+    <td class="locais_td"><a class="endere" href="https://maps.app.goo.gl/3kTVgMtSJ46eKSJB7" target="_blank">Avenida Ecologista de João de Oliveira Ramos de Sá frente nº 1129</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">A</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.50:8989" target="_blank">SPLEMB-0917</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.645953,-46.834275" target="_blank">Av. Jorge Alfredo Camasmie, 470</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.138:8989" target="_blank">SPLEMB-0928</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.636361,-46.828499" target="_blank">Av. João Paulo I, 1130 x Acesso a BR-116</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.134:8989" target="_blank">SPLEMB-0929</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.636361,-46.828499" target="_blank">Av. João Paulo I, 1130 x Acesso a BR-116 770</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.114:8989" target="_blank">SPLEMB-0930</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.651902,-46.814909" target="_blank">Av. Aimara, 529</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.22:8989" target="_blank">SPLEMB-0931</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.648167,-46.864950" target="_blank">Av. João Batista Medina, 1200</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.102:8989" target="_blank">SPLEMB-0932</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.647790,-46.868272" target="_blank">AV. João Batista Medina, 1623</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.122:8989" target="_blank">SPLEMB-0933</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.645194,-46.808519" target="_blank">Av. João Paulo II, próximo ao N. 319</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.150:8989" target="_blank">SPLEMB-0934</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.667856,-46.809915" target="_blank">Estr. Jerusalém, 316</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.70:8989" target="_blank">SPLEMB-0935</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.633306,-46.852561" target="_blank">Estr. Keichi Matsumoto, próximo ao N. 462</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.106:8989" target="_blank">SPLEMB-0936</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.656916,-46.853766" target="_blank">R. Primeiro de Maio, 106</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.174:8989" target="_blank">SPLEMB-0937</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.642202,-46.843636" target="_blank">Av. Isaltino Victor de Moraes, 281</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.126:8989" target="_blank">SPLEMB-0938</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.665537,-46.875700" target="_blank">Estrada Kaiko, próximo ao N. 3001</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.58:8989" target="_blank">SPLEMB-0939</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.656668,-46.826996" target="_blank">Estr. Aurelino Alves dos Santos, 506</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V + RC</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.62:8989" target="_blank">SPLEMB-0940</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.635191,-46.827901" target="_blank">Av. Hélio Ossamu Daikuara, próximo ao N. 1445</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.6:8989" target="_blank">SPLEMB-0941</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.647926,-46.827694" target="_blank">Av. Rotary, próximo ao N. 1695</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.142:8989" target="_blank">SPLEMB-0942</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.655774,-46.853839" target="_blank">Av. Vereador Jorge de Souza, 935</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.86:8989" target="_blank">SPLEMB-0943</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.640847,-46.882693" target="_blank">Estr. Dona Maria José Ferraz Prado, 486</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.26:8989" target="_blank">SPLEMB-0944</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.645715,-46.832505" target="_blank">R. Marcelino Pinto Teixeira, próximo ao N. 1268</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.82:8989" target="_blank">SPLEMB-0945</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.659824,-46.815423" target="_blank">R. Augusto de Almeida Batista x R. Chile</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V+A+P</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.130:8989" target="_blank">SPLEMB-0946</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.658502,-46.852117" target="_blank">Av. Elias Yazbek, 567</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V+A+P</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.46:8989" target="_blank">SPLEMB-0947</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.674940,-46.801499" target="_blank">Estrada de Itapecerica a Campo Limpo, 3359</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.38:8989" target="_blank">SPLEMB-0948</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.644735,-46.844873" target="_blank">Av. Elias Yazbek, 2399</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V+L</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.66:8989" target="_blank">SPLEMB-0949</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.637936,-46.833706" target="_blank">Av. João Paulo I, 422</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V+L</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.42:8989" target="_blank">SPLEMB-0950</a></td>
+    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.664912,-46.799129" target="_blank">R. Campos Sales, 108</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">V</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.10:8989" target="_blank">SPLEMB-1873</a></td>
+    <td class="locais_td"><a class="endere" href="https://maps.app.goo.gl/KPcMsxE52iegjzBM8" target="_blank">Estrad Prof Cândido Mota Filho, Oposto 1071</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">RC</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.110:8989" target="_blank">SPLEMB-1874</a></td>
+    <td class="locais_td"><a class="endere" href="https://maps.app.goo.gl/5NedoSKaFQSqK7wB7" target="_blank">R Andrônico dos Prazeres Gonçalves X R Dona Jandira Sodré</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">RC</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.90:8989" target="_blank">SPLEMB-1875</a></td>
+    <td class="locais_td"><a class="endere" href="https://maps.app.goo.gl/FAhDZZPodmUYRfZT6" target="_blank">R João Batista Medina, 385</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">RC</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.78:8989" target="_blank">SPLEMB-1876</a></td>
+    <td class="locais_td"><a class="endere" href="https://maps.app.goo.gl/LBLhiZiQAn53Pvpf6" target="_blank">Estrad Keichi Matsumoto, oposto 462</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">RC</td>
+</tr>
+
+<tr class="locais_tr">
+    <td class="locais_td"><a class="acesso" href="HTTP://10.20.100.98:8989" target="_blank">SPLEMB-1877</a></td>
+    <td class="locais_td"><a class="endere" href="https://maps.app.goo.gl/5cEdM1mmwubZSkEH8" target="_blank">Av.João Paulo II, 1653</a></td>
+    <td class="locais_td">SPL-MFS1</td>
+    <td class="locais_td">A</td>
+</tr>
+    </tbody>
+</table>
+                  
+          `; 
+            }
+        };</script>

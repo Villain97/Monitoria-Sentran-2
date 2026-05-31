@@ -1,0 +1,6 @@
+services:
+  - type: static_site
+    name: monitoria-sentran
+    buildCommand: ""
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: false

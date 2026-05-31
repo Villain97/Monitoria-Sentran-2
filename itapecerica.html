@@ -1,0 +1,232 @@
+<!doctype html><html lang="pt-br"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Monitoria Sentran</title><link rel="stylesheet" href="styles.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"><meta name="theme-color" content="#080808"><meta name="robots" content="noindex, nofollow"><body><script src="main.js"></script><script>window.onload = function() {
+            var mainElement = document.querySelector('main'); // Seleciona o elemento <main>
+            if (mainElement) { // Verifica se o <main> existe
+                mainElement.innerHTML += ` 
+                    <h1 class="titulo">Itapecerica</h1>
+
+        <div class="page-meta">
+          <span class="meta-chip"><strong>Regional IPEM</strong> RCSUL</span>
+          <span class="meta-chip"><strong>CNPJ</strong> 50.625.966/0001-92 — Consórcio Itapecerica Mais Segura</span>
+          <span class="meta-chip"><strong>Cliente</strong> 0654501</span>
+          <span class="meta-chip"><strong>Porta</strong> 289</span>
+          <span class="meta-chip"><strong>Servidor</strong> 10.1.0.5</span>
+          <span class="meta-chip"><strong>IP Aplicação</strong> 10.20.140.1</span>
+        </div>
+
+        <table class="locais">
+    <thead>
+        <tr class="locais_tr">
+            <th class="locais_th">Série</th>
+            <th class="locais_th">Local</th>
+            <th class="locais_th">Modelo</th>
+            <th class="locais_th">Função</th>
+        </tr> 
+            </thead>
+            <tbody id="tabelaLocais">
+                <!-- Equipamentos ITP (VSIS VCAP 01) -->
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="http://vpnvalive.velsis.com.br:16884/rtm/login" target="_blank">ITP10799</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.709316,-46.849693" target="_blank">Av. XV de Novembro Próximo N°906</a></td>
+                    <td class="locais_td">VSIS VCAP 01</td>
+                    <td class="locais_td">V+CE+RC</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="http://vpnvalive.velsis.com.br:15936/rtm/login" target="_blank">ITP10966</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.686813,-46.802409" target="_blank">Avenida Soldado PM Gilberto Augustinho Próximo N° 15</a></td>
+                    <td class="locais_td">VSIS VCAP 01</td>
+                    <td class="locais_td">V+A+CE</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="http://vpnvalive.velsis.com.br:16548/rtm/login" target="_blank">ITP11070</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.719065,-46.851367" target="_blank">Praça da Bandeira Próximo N°36</a></td>
+                    <td class="locais_td">VSIS VCAP 01</td>
+                    <td class="locais_td">V+A+CE</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="http://vpnvalive.velsis.com.br:16060/rtm/login" target="_blank">ITP11076</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.697289,-46.833233" target="_blank">Estrada Ary Domingues Mandu. Próximo ao N° 1002</a></td>
+                    <td class="locais_td">VSIS VCAP 01</td>
+                    <td class="locais_td">V</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="http://vpnvalive.velsis.com.br:15924/rtm/login" target="_blank">ITP11078</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.719268,-46.844787" target="_blank">Estrada João Rodrigues de Moraes Próximo N. 127</a></td>
+                    <td class="locais_td">VSIS VCAP 01</td>
+                    <td class="locais_td">V</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="http://vpnvalive.velsis.com.br:15276/rtm/login" target="_blank">ITP11092</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.705682,-46.844019" target="_blank">Estrada Ary Domingues Mandu, proximo ao número 346</a></td>
+                    <td class="locais_td">VSIS VCAP 01</td>
+                    <td class="locais_td">V</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="http://vpnvalive.velsis.com.br:15720/rtm/login" target="_blank">ITP11110</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.715363,-46.848673" target="_blank">Rua Virgilio Busnello Próximo ao nº 127</a></td>
+                    <td class="locais_td">VSIS VCAP 01</td>
+                    <td class="locais_td">V+CE</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="http://vpnvalive.velsis.com.br:15762/rtm/login" target="_blank">ITP11152</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.708673,-46.851167" target="_blank">Avenida Niterói Próximo N°256</a></td>
+                    <td class="locais_td">VSIS VCAP 01</td>
+                    <td class="locais_td">V</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="http://vpnvalive.velsis.com.br:16580/rtm/login" target="_blank">ITP11242</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.7255053,-46.8745611" target="_blank">Estrada Djalma Pinto Ribeiro Próximo N°780</a></td>
+                    <td class="locais_td">VSIS VCAP 01</td>
+                    <td class="locais_td">V+CE+RC</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="http://vpnvalive.velsis.com.br:15210/rtm/login" target="_blank">ITP11244</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.718826,-46.847187" target="_blank">Rua Treze de Maio Próximo N°229</a></td>
+                    <td class="locais_td">VSIS VCAP 01</td>
+                    <td class="locais_td">V+CE</td>
+                </tr>
+
+                <!-- Equipamentos PUMA (ITSCAMPRO NM1) -->
+                <tr class="locais_tr">
+                    <td class="locais_td">PUMA-ITP-0564</td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.6883666,-46.8555307" target="_blank">Rod. Salvador Leone, próximo ao N. 3124</a></td>
+                    <td class="locais_td">ITSCAMPRO NM1</td>
+                    <td class="locais_td">CE</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td">PUMA-ITP-0580</td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.754103,-46.789317" target="_blank">Estr. Crispim, próximo ao N. 15</a></td>
+                    <td class="locais_td">ITSCAMPRO NM1</td>
+                    <td class="locais_td">CE</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td">PUMA-ITP-0951</td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.720508,-46.840577" target="_blank">Estr. João Rodrigues de Moraes, próximo ao N. 961</a></td>
+                    <td class="locais_td">ITSCAMPRO NM1</td>
+                    <td class="locais_td">CE+RC</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td">PUMA-ITP-0960</td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.698749,-46.801476" target="_blank">Estrada dos Coqueiros, próximo ao N. 3</a></td>
+                    <td class="locais_td">ITSCAMPRO NM1</td>
+                    <td class="locais_td">CE</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td">PUMA-ITP-0962</td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.694587,-46.825630" target="_blank">Estr. Ary Domingues Mandu, próximo ao N. 2719</a></td>
+                    <td class="locais_td">ITSCAMPRO NM1</td>
+                    <td class="locais_td">CE</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td">PUMA-ITP-0964</td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.7115145,-46.8703455" target="_blank">Av. Eduardo Roberto Daher, próximo ao N. 94</a></td>
+                    <td class="locais_td">ITSCAMPRO NM1</td>
+                    <td class="locais_td">CE</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td">PUMA-ITP-0965</td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.6869139,-46.8036465" target="_blank">Rod. Armando Salles, próximo ao N. 1115</a></td>
+                    <td class="locais_td">ITSCAMPRO NM1</td>
+                    <td class="locais_td">CE</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td">PUMA-ITP-0966</td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.7583079,-46.8414751" target="_blank">Rod. Pref. Bento Roger Domingues, próximo ao N. 6081</a></td>
+                    <td class="locais_td">ITSCAMPRO NM1</td>
+                    <td class="locais_td">CE</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td">PUMA-ITP-0974</td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.717022,-46.866832" target="_blank">R. João Antônio de Moraes, 206</a></td>
+                    <td class="locais_td">ITSCAMPRO NM1</td>
+                    <td class="locais_td">CE+RC</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td">PUMA-ITP-0982</td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.693209,-46.820236" target="_blank">Rod. Armando Salles, próximo ao N. 4651</a></td>
+                    <td class="locais_td">ITSCAMPRO NM1</td>
+                    <td class="locais_td">CE</td>
+                </tr>
+
+                <!-- Equipamentos SPLITP (SPL-MFS1) -->
+                <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.140.230:8989" target="_blank">SPLITP-0998</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.708516,-46.849827" target="_blank">Av. Quinze de novembro, próximo ao N. 869</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+CE+RC</td>
+                    </tr>
+
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.140.6:8989" target="_blank">SPLITP-1064</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.700679,-46.859161" target="_blank">Av. Nove de julho, próximo ao N. 2228</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+CE</td>
+                    </tr>
+
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.140.234:8989" target="_blank">SPLITP-1065</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.742048,-46.801165" target="_blank">Estr. Abias da Silva x Estr. Comodoro</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">A+P+CE</td>
+                    </tr>
+
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.140.54:8989" target="_blank">SPLITP-1066</a></td>
+                        <td class="locais_td">LOCAL NÃO INFORMADO</td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V</td>
+                    </tr>
+
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.140.238:8989" target="_blank">SPLITP-1067</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.714774,-46.851934" target="_blank">Rua Maj. Manuel Francisco de Moraes, próximo ao N. 186</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V+A+P</td>
+                    </tr>
+
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.140.246:8989" target="_blank">SPLITP-1068</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.719034,-46.851326" target="_blank">R. Inácio Pereira dos Santos, próximo ao N. 24</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">A+P+CE</td>
+                    </tr>
+
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.140.18:8989" target="_blank">SPLITP-1069</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.722625,-46.854118" target="_blank">R. Zoraide Eva das Dores, próximo do N. 100</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V</td>
+                    </tr>
+
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.140.14:8989" target="_blank">SPLITP-1070</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.747816,-46.873143" target="_blank">Estr. Joaquim Cardoso Filho, próximo ao N. 7286</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V</td>
+                    </tr>
+
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.140.22:8989" target="_blank">SPLITP-1071</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.691177,-46.842651" target="_blank">Estrada dos Macieis, próximo ao N. 1494</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V</td>
+                    </tr>
+
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.140.10:8989" target="_blank">SPLITP-1072</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.755940,-46.831002" target="_blank">Estr. Abias da Silva, próximo ao N. 228</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V</td>
+                    </tr>
+
+                    <tr class="locais_tr">
+                        <td class="locais_td"><a class="acesso" href="HTTP://10.20.140.26:8989" target="_blank">SPLITP-1073</a></td>
+                        <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.782247,-46.864858" target="_blank">Estr. Abias da Silva, próximo ao N. 5905</a></td>
+                        <td class="locais_td">SPL-MFS1</td>
+                        <td class="locais_td">V</td>
+                    </tr>           
+            </tbody>
+        </table>
+                  
+          `; 
+            }
+        };</script>

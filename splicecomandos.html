@@ -1,0 +1,139 @@
+<!doctype html><html lang="pt-br"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Comandos Splice — Monitoria Sentran</title><link rel="stylesheet" href="styles.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"><meta name="theme-color" content="#080808"><meta name="robots" content="noindex, nofollow"><body><script src="main.js"></script><script>window.addEventListener('DOMContentLoaded', function () {
+      var main = document.getElementById('main-content');
+      if (!main) return;
+
+      main.innerHTML = `
+        <h1 class="titulo">Comandos SSH — Splice</h1>
+        <p style="color:var(--cinza);font-size:0.85rem;margin-bottom:24px;">
+          Clique em qualquer comando para copiá-lo para a área de transferência.
+        </p>
+
+        <div class="section-divider"></div>
+
+        <!-- Credenciais -->
+        <div class="senha-card">
+          <span class="senha-label">Senha acesso RTM</span>
+          <span class="senha-valor">RTM@5pl1c3</span>
+          <button class="senha-copy" data-senha="RTM@5pl1c3" aria-label="Copiar senha RTM">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <span class="senha-copy-label">Copiar</span>
+          </button>
+        </div>
+        <div class="senha-card">
+          <span class="senha-label">Senha comandos script CMD</span>
+          <span class="senha-valor">MF515pl1c3@</span>
+          <button class="senha-copy" data-senha="MF515pl1c3@" aria-label="Copiar senha CMD">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <span class="senha-copy-label">Copiar</span>
+          </button>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="cmd-section">
+
+          <div class="cmd-block">
+            <p class="cmd-titulo">Instalação da VPN</p>
+            <code class="cmd-line">chmod 755 radar_vpn_conf.sh</code>
+            <code class="cmd-line">./radar_vpn_conf.sh</code>
+          </div>
+
+          <div class="cmd-block">
+            <p class="cmd-titulo">Atualização N/MET</p>
+            <code class="cmd-line">sudo dpkg -i splice-radar-5.9.0.474-08b9a4a99-featureceliosmartmicro.deb</code>
+            <p class="cmd-nota">Atualização direta no equip ver5.9</p>
+            <code class="cmd-line">sudo apt update</code>
+            <p class="cmd-nota">Verifica atualizações pendentes</p>
+            <code class="cmd-line">sudo apt install splice-radar</code>
+            <p class="cmd-nota">Baixa e atualiza para versão mais recente</p>
+          </div>
+
+          <div class="cmd-block">
+            <p class="cmd-titulo">Reiniciar módulos</p>
+            <code class="cmd-line">sudo /radar/util/reset_met_module_by_CANBUS.sh</code>
+          </div>
+
+          <div class="cmd-block">
+            <p class="cmd-titulo">Verificar ping do MET</p>
+            <code class="cmd-line">ping met-raw</code>
+          </div>
+
+          <div class="cmd-block">
+            <p class="cmd-titulo">Zerar status semafórico do radar</p>
+            <code class="cmd-line">echo t01231E5AA5 devttyS2</code>
+            <p class="cmd-nota">Após o comando é necessário realizar o reset dos módulos via CANBUS.</p>
+          </div>
+
+          <div class="cmd-block">
+            <p class="cmd-titulo">Verificar módulos ativos</p>
+            <code class="cmd-line">sudo splice-util-can-linux-terminal</code>
+            <p class="cmd-nota">0 = MET · 1 = NMT · 4 = MCA · 5 = UPC MET · 6 = UPC NMET</p>
+          </div>
+
+          <div class="cmd-block">
+            <p class="cmd-titulo">Verificar status do MET</p>
+            <code class="cmd-line">tail -f /var/log/met-raw.log</code>
+          </div>
+
+          <div class="cmd-block">
+            <p class="cmd-titulo">Outros comandos Radar</p>
+            <code class="cmd-line">sudo service splice-radar check</code>
+            <code class="cmd-line">sudo service splice-radar stop</code>
+            <code class="cmd-line">sudo service splice-radar start</code>
+            <code class="cmd-line">sudo service splice-radar status</code>
+          </div>
+
+          <div class="cmd-block">
+            <p class="cmd-titulo">Reinstalar todo pacote visual</p>
+            <code class="cmd-line">sudo dpkg --configure -a</code>
+            <code class="cmd-line">sudo apt -f install</code>
+            <code class="cmd-line">sudo apt remove --purge docker*</code>
+            <code class="cmd-line">sudo apt clean &amp;&amp; sudo apt autoclean</code>
+            <code class="cmd-line">sudo apt update</code>
+            <code class="cmd-line">sudo apt install docker.io docker-compose</code>
+          </div>
+
+          <div class="cmd-block">
+            <p class="cmd-titulo">Reinstalar interface</p>
+            <code class="cmd-line">sudo /radar/util/watchdog_disable.sh</code>
+            <code class="cmd-line">sudo service splice-radar stop</code>
+            <code class="cmd-line">cd /radar/util/</code>
+            <code class="cmd-line">sudo ./cpu2netconf.sh install-interfaces</code>
+            <code class="cmd-line">sudo ./cpu2netconf.sh restart-all-interfaces</code>
+          </div>
+
+          <div class="cmd-block">
+            <p class="cmd-titulo">Verificar versão do OCR</p>
+            <code class="cmd-line">sudo docker images</code>
+            <p class="cmd-nota">Versão mais atual até o momento: 1.1.0</p>
+          </div>
+
+          <div class="cmd-block">
+            <p class="cmd-titulo">Instalação de OCR</p>
+            <code class="cmd-line">sudo dpkg --configure -a</code>
+            <code class="cmd-line">sudo apt -f install</code>
+            <code class="cmd-line">sudo apt remove --purge docker*</code>
+            <code class="cmd-line">sudo apt clean &amp;&amp; sudo apt autoclean</code>
+            <code class="cmd-line">sudo apt update</code>
+            <code class="cmd-line">sudo apt install docker.io docker-compose</code>
+            <code class="cmd-line">sudo apt install splice-lpr</code>
+          </div>
+
+          <div class="cmd-block">
+            <p class="cmd-titulo">OCR direto do equipamento</p>
+            <p class="cmd-nota">Realize o download dos arquivos LPR e VisaoComputacional e envie via WinSCP.</p>
+            <code class="cmd-line">sudo dpkg --configure -a</code>
+            <code class="cmd-line">sudo apt -f install</code>
+            <code class="cmd-line">sudo apt remove --purge docker*</code>
+            <code class="cmd-line">sudo apt autoremove</code>
+            <code class="cmd-line">sudo apt clean &amp;&amp; sudo apt autoclean</code>
+            <code class="cmd-line">sudo apt update</code>
+          </div>
+
+        </div>
+      `;
+    });</script>

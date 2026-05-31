@@ -1,0 +1,17 @@
+<!doctype html><html lang="pt-br"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Simec — Monitoria Sentran</title><link rel="stylesheet" href="styles.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"><meta name="theme-color" content="#080808"><meta name="robots" content="noindex, nofollow"><body><script src="main.js"></script><script>window.addEventListener('DOMContentLoaded', function () {
+      var main = document.getElementById('main-content');
+      if (!main) return;
+
+      main.innerHTML = `
+        <h1 class="titulo">Simec — Perkons</h1>
+        <p style="color:var(--cinza);font-size:0.88rem;margin-bottom:24px;">
+          Acesso aos mapas Zabbix via Simec.
+        </p>
+        <div class="btn-grid btn-grid--large">
+          <a class="botao" href="http://simec.perkons.com:8086/zabbix.php?action=map.view&sysmapid=100" target="_blank" rel="noopener">Gov. Valadares</a>
+          <a class="botao" href="http://simec.perkons.com:8086/zabbix.php?action=map.view&sysmapid=28" target="_blank" rel="noopener">Jacareí</a>
+          <a class="botao" href="http://simec.perkons.com:8086/zabbix.php?action=map.view&sysmapid=106" target="_blank" rel="noopener">Santa Bárbara d'Oeste</a>
+          <a class="botao" href="http://simec.perkons.com:8086/zabbix.php?action=map.view&sysmapid=156" target="_blank" rel="noopener">São Sebastião</a>
+        </div>
+      `;
+    });</script>

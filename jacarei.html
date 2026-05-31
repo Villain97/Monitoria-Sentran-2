@@ -1,0 +1,322 @@
+<!doctype html><html lang="pt-br"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Monitoria Sentran</title><link rel="stylesheet" href="styles.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"><meta name="theme-color" content="#080808"><meta name="robots" content="noindex, nofollow"><body><script src="main.js"></script><script>window.onload = function() {
+            var mainElement = document.querySelector('main'); // Seleciona o elemento <main>
+            if (mainElement) { // Verifica se o <main> existe
+                mainElement.innerHTML += ` 
+                 <h1 class="titulo">Jacareí</h1>
+
+        <div class="page-meta">
+          <span class="meta-chip"><strong>Regional IPEM</strong> RSCAR</span>
+          <span class="meta-chip"><strong>CNPJ</strong> 02.734.092/0001-69 — Sentran</span>
+        </div>
+
+        <table class="locais">
+    <thead>
+        <tr class="locais_tr">
+            <th class="locais_th">Série</th>
+            <th class="locais_th">Local</th>
+            <th class="locais_th">Modelo</th>
+            <th class="locais_th">Função</th>
+        </tr> 
+    </thead>
+    <tbody id="tabelaLocais">
+        
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.178" target="_blank">R07918 - PJACA6565</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.305096,-45.956729" target="_blank">RUA PROFA. OLINDA DE ALMEIDA MERCADANTE, N. 121</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.4.182" target="_blank">R07919 - PJACA6526</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.306662,-46.0089209" target="_blank">AV. Lucas Nogueira Garcez, defronte ao 1608</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td">R07920 - PJACA6527</td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3034623,-46.0169436" target="_blank">AV. Lucas Nogueira Garcez, 250 Metros antes do nº 2181</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.182" target="_blank">R07921 - PJACA6528</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3022137,-45.9656726" target="_blank">Av. Eng. Davi Monteiro Lino, 211</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.186" target="_blank">R07922 - PJACA6529</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.2811161,-45.9526452" target="_blank">Av. Eng. Davi Monteiro Lino, 3065</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.1.138" target="_blank">R07923 - PJACA6530</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.2818697,-45.9523055" target="_blank">Av. Eng. Davi Monteiro Lino, N 3000</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.5.154" target="_blank">R07924 - PJACA6531</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.2837844,-45.9522755" target="_blank">Av. Getúlio Vargas, 90 metros após ao 530</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.4.198" target="_blank">R07925 - PJACA6532</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.256517,-45.988863" target="_blank">Estr. Mun. Biagiono Chieffi n. 2655</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">L+V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.5.58" target="_blank">R07926 - PJACA6533</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.2743189,-45.950825" target="_blank">Av. Getúlio Vargas, 172 metros após 1600</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.178" target="_blank">R07927 - PJACA6524</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.2869005,-45.9700511" target="_blank">AV. Malek Assad, 700</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.102" target="_blank">R07928 - PJACA6535</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.2852717,-45.939248" target="_blank">Av. José Ribeiro Moreira, oposto ao nº 180</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.5.94" target="_blank">R07929 - PJACA6572</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3090456,-45.9774778" target="_blank">Pça Independencia, prox. ao nº 369</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.110" target="_blank">R07930 - PJACA6537</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.2698088,-45.9485287" target="_blank">R. José Jorge Abrahão, 495</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">V+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.5.54" target="_blank">R07931 - PJACA6534</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.2639976,-45.9501949" target="_blank">Av. Getúlio Vargas, oposto ao 3151</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.114" target="_blank">R07932 - PJACA6538</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3050679,-45.9607413" target="_blank">Rua General Carneiro X Rua Alfredo Ramos</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.218" target="_blank">R07933 - PJACA6539</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3085098,-45.9694259" target="_blank">Rua Salvador Preto, nº 15</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.1.226" target="_blank">R07934 - PJACA6540</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3079565,-45.9694591" target="_blank">Av. Orlando Hardt, oposto ao nº 260</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P+RC+C</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td">R07935 - PJACA6541</td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3049282,-45.9659803" target="_blank">Rua Barão de Jacareí X Rua Conego José Bento</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.4.182" target="_blank">R07936 - PJACA6525</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.2641718,-45.9442034" target="_blank">Av Das Letras, OPOSTO AO N°1266</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">L+V+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.226" target="_blank">R07937 - PJACA6543</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.2976619,-45.9545361" target="_blank">Rua Barão de Jacareí X Rua Carlos de Campos</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.12.250" target="_blank">R07938 - PJACA6544</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3050169,-45.9638903" target="_blank">Rua Rui Barbosa X Rua Floriano Peixoto</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td">R07939 - PJACA6545</td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.304165,-45.9668788" target="_blank">Rua Dr. Lucio Malta x Av. Senador Joaquim Miguel Martins de Siqueira</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.5.94" target="_blank">R07940 - PJACA6573</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3087842,-45.9772318" target="_blank">Pça Independencia, nº 104</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.254" target="_blank">R07941 - PJACA6547</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3058662,-45.9716845" target="_blank">Rua Quinze de Novembro X Rua Antonio Afonso</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.250" target="_blank">R07942 - PJACA6549</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3039068,-45.9658278" target="_blank">Rua Bernardino de Campos, nº 16</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.14.2" target="_blank">R07943 - PJACA6550</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3067646,-45.9737507" target="_blank">Rua Quinze de Novembro x Rua Cap. João José de Macedo</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.14.6" target="_blank">R07945 - PJACA6552</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.292561,-45.9560458" target="_blank">Av. Siqueira Campos, oposto ao nº 1174</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.14.10" target="_blank">R07946 - PJACA6553</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.2920875,-45.9589941" target="_blank">Av. Eng. Davi Monteiro lino, 10M antes do nº 1138</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.14.14" target="_blank">R07947 - PJACA6554</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.2966321,-45.966483" target="_blank">AV. AVAREÍ X RUA FARIA LIMA</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.0.118" target="_blank">R07948 - PJACA6689</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.2866017,-45.9532991" target="_blank">AV GETULIO VARGAS, 80M APOS N.455</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">V+A+C</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.7.162" target="_blank">R07949 - PJACA6563</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3016819,-45.970448" target="_blank">Av. Nove de Julho, oposto ao nº 215</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">L+V+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.206" target="_blank">R07950 - PJACA6561</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.306559,-45.962900" target="_blank">Rua Tiradentes n. 228</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.6.210" target="_blank">R07951 - PJACA6558</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.2874604,-45.9546013" target="_blank">Av. Eng. Davi Monteiro Lino x R. Gilda Scalisse Soares</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.6.14" target="_blank">R07952 - PJACA6560</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.2693959,-45.9503365" target="_blank">Av. Getulio Vargas, oposto ao nº 2451</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td">R07953 - PJACA6559</td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.268273,-45.9503688" target="_blank">Av. Getulio Vargas, nº 2581</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.6.10" target="_blank">R07954 - PJACA6548</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3052588,-45.9744312" target="_blank">Rua Cap. João José de Macedo, oposto ao 510</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.9.234" target="_blank">R07955 - PJACA6569</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.296182,-45.954337" target="_blank">Av. G. C. Josué Sant'ana x Rua Moisés Ruston</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.202" target="_blank">R07957 - PJACA6564</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.310168,-45.9871389" target="_blank">Av. Santa Cruz dos Lázaros, nº 58</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">L+V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.210" target="_blank">R07960 - PJACA6567</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3012314,-45.9838795" target="_blank">Av. Pensylvânia, nº 591</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">L+V+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.0.126" target="_blank">R07962 - PJACA6570</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3016452,-45.9589282" target="_blank">Av. Barão de Jacareí, 910</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">L+V+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.158" target="_blank">R08305 - PJACA6691</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3125255,-45.9903833" target="_blank">AV Maria Augusta Fagundes Gomes, N.627</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">L+V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.150" target="_blank">R08307 - PJACA6568</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3136834,-45.9809134" target="_blank">AV. PEREIRA CAMPOS, 488</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">L+V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.118" target="_blank">R08308 - PJACA6566</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.301583,-45.929556" target="_blank">Av. São Jorge, n° 1689</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">L+V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.194" target="_blank">R08310 - PJACA6690</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.304833,-45.9744177" target="_blank">R CAP. JOAQUIM PINHEIRO DO PRADO, OPOSTO AO N 156</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.130" target="_blank">R08313 - PJACA6571</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3114805,-45.9948277" target="_blank">Av. Lucas Nogueira Garcez x Av. Wilson Nogueira Soares</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">L+V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.1.122" target="_blank">R08314 - PJACA6557</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3113235,-45.9956509" target="_blank">Av. Lucas Nogueira Garcez, a 95M da Av. Wilson N. Soares</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">L+V</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.9.34" target="_blank">R09392 - PJACA6551</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.297428,-45.9591503" target="_blank">Rua Siqueira Campos x Carlos de Campos</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">V+A+P+RC</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td">R10683 - PJACA6546</td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.3118405,-45.9824993" target="_blank">RUA SANTA HELENA X RUA JOSE DE MORAES</a></td>
+            <td class="locais_td">SmartPK PROI</td>
+            <td class="locais_td">V+A+P</td>
+        </tr>
+        <tr class="locais_tr">
+            <td class="locais_td"><a class="acesso" href="https://172.31.13.106" target="_blank">R11666 - PJACA6536</a></td>
+            <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-23.267957,-45.9402428" target="_blank">AV DAS LETRAS, OPOSTO AO N. 659</a></td>
+            <td class="locais_td">SmartPK PROI (versão Light)</td>
+            <td class="locais_td">V+RC</td>
+        </tr>
+    </tbody>
+</table>
+                  
+          `; 
+            }
+        };</script>

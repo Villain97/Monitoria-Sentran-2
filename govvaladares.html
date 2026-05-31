@@ -1,0 +1,165 @@
+<!doctype html><html lang="pt-br"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Monitoria Sentran</title><link rel="stylesheet" href="styles.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"><meta name="theme-color" content="#080808"><meta name="robots" content="noindex, nofollow"><body><script src="main.js"></script><script>window.onload = function() {
+            var mainElement = document.querySelector('main'); // Seleciona o elemento <main>
+            if (mainElement) { // Verifica se o <main> existe
+                mainElement.innerHTML += ` 
+                 <h1 class="titulo">Gov. Valadares</h1>
+
+        <div class="page-meta">
+          <span class="meta-chip"><strong>Regional IPEM</strong> IPEM-MG (SEDE)</span>
+          <span class="meta-chip"><strong>CNPJ</strong> 02.679.522/0001-97 — DCT</span>
+        </div>
+
+        <table class="locais">
+    <thead>
+        <tr class="locais_tr">
+            <th class="locais_th">Série</th>
+            <th class="locais_th">Local</th>
+            <th class="locais_th">Modelo</th>
+            <th class="locais_th">Função</th>
+        </tr> 
+            </thead>
+            <tbody id="tabelaLocais">
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.32.166" target="_blank">GVAL-7275-R09411</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.894765,-41.979793" target="_blank">Av Euzebio Cabral, 4585-Santa Rita</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.18.38" target="_blank">GVAL-7276-R09412</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.870372,-41.9565318" target="_blank">Av Jk, 1004-Vila Bretas</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.32.178" target="_blank">GVAL-7277-R09413</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.8538202,-41.9557186" target="_blank">Av Dr Raimundo M Rezende, 330-Centro</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.14.34" target="_blank">GVAL-7278-R09395</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.8358978,-41.8801013" target="_blank">Av Moacir Paleta, 3355-Capim</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.3.230" target="_blank">GVAL-7279-R09396</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.8385198,-41.9152619" target="_blank">Av Moacir Paleta, 500-Santos Dumont</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.14.30" target="_blank">GVAL-7280-R09397</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.8372485,-41.906617" target="_blank">Avenida JK, n° 1073 - Vila Bretas</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.32.234" target="_blank">GVAL-7281-R09398</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.8347167,-41.9014821" target="_blank">Av Moacir Paleta, SN, prox Vd Ver M Morais</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.33.250" target="_blank">GVAL-7282-R09399</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.8828698,-41.9664388" target="_blank">Av. JK, N. 2730 - Sao Cristovao</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V+A+P</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.33.226" target="_blank">GVAL-7283-R09400</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.860614,-41.9492070" target="_blank">R Mal Floriano X R Quintino Bocaiuva - Centro</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V+A</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.38.142" target="_blank">GVAL-7284-R09401</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.8610149,-41.9475116" target="_blank">Av Brasil X R Benjamin Constant-Centro</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V+A+P</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.38.146" target="_blank">GVAL-7285-R09402</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.8572083,-41.9440632" target="_blank">R Regino Oliveira Rosa, 253,B. Fazenda Barra Onca</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.24.90" target="_blank">GVAL-7286-R09403</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.856167,-41.945207" target="_blank">R Israel Pinheiro X Av Minas Gerais-Centro</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V+A+P</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.29.26" target="_blank">GVAL-7287-R09404</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.8545712,-41.9538519" target="_blank">R Sete de Setembro, 3535-Morada do Acamp</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V+A+P</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.38.110" target="_blank">GVAL-7288-R09405</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.8512352,-41.9453355" target="_blank">R Sete de Setembro X R Dom Pedro II-Centro</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V+A+P</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.30.162" target="_blank">GVAL-7289-R09406</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.847727,-41.9507004" target="_blank">Av Minas Gerais, 1497-Nossa Sra das Gracas</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V+A+P</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.38.186" target="_blank">GVAL-7290-R09407</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.8475851,-41.9508875" target="_blank">Av Minas Gerais, 1497-Nossa Sra das Gracas</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V+A+P</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://179.145.195.216" target="_blank">GVAL-7291-R09408</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.8419647,-41.9553675" target="_blank">Av Minas Gerais, 2390-Gra Duquesa</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V+A+P</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.32.114" target="_blank">GVAL-7292-R09409</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.8417925,-41.9560846" target="_blank">Av Minas Gerais, 2413-Gra Duquesa</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V+A</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.38.102" target="_blank">GVAL-7407-R09942</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.851572,-41.945805" target="_blank">R Sete de Setembro X R Dom Pedro II-Centro</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V+A+P</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.14.210" target="_blank">GVAL-9348-R14292</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.880484,-41.963406" target="_blank">Av. Jk, 2313-Vila Rica</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V+A</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.14.190" target="_blank">GVAL-9349-R14293</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.875800,-41.959185" target="_blank">R. Treze de Maio X João dias Duarte-Vila Bretas</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V+A</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.14.178" target="_blank">GVAL-9350-R14294</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.853880,-41.968503" target="_blank">Av. do Canal, 784-Altinópolis</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V</td>
+                </tr>
+                <tr class="locais_tr">
+                    <td class="locais_td"><a class="acesso" href="https://172.31.14.202" target="_blank">GVAL-9351-R14295</a></td>
+                    <td class="locais_td"><a class="endere" href="https://www.google.com/maps?q=-18.886644,-41.974157" target="_blank">Av. Pres Getulio Vargas, 297-Castanheiras</a></td>
+                    <td class="locais_td">SmartPK PROI</td>
+                    <td class="locais_td">V</td>
+                </tr>
+            </tbody>
+        </table>
+                  
+          `; 
+            }
+        };</script>
